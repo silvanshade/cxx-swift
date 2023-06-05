@@ -1,0 +1,8 @@
+{
+  "cxx_include": "cxx-swift-abi/cxx/include/swift/ClangImporter/SerializedSwiftName.hxx",
+  "cxx_namespace": "cxx_swift::swift::clang_importer::serialized_swift_name",
+  "rust_name": "SerializedSwiftName",
+  "rust_lifetimes": {
+    "ctx": []
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "cxx_include": "cxx-swift-abi/cxx/include/swift/AST/DiagnosticEngine.hxx",
+  "cxx_namespace": "cxx_swift::swift::ast::diagnostic_engine",
+  "rust_name": "DiagnosticEngine",
+  "rust_lifetimes": {
+    "source_manager": []
+  }
+}

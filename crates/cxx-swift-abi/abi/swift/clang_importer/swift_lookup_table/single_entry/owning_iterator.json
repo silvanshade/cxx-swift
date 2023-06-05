@@ -1,0 +1,8 @@
+{
+  "cxx_include": "cxx-swift-abi/cxx/include/swift/ClangImporter/SwiftLookupTable/SingleEntry/OwningIterator.hxx",
+  "cxx_namespace": "cxx_swift::swift::clang_importer::swift_lookup_table::single_entry::owning_iterator",
+  "rust_name": "SwiftLookupTableSingleEntryOwningIterator",
+  "rust_lifetimes": {
+    "ctx": []
+  }
+}

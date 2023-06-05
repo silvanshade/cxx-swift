@@ -1,0 +1,8 @@
+{
+  "cxx_include": "cxx-swift-abi/cxx/include/swift/ClangImporter/SerializedSwiftName/OwningIterator.hxx",
+  "cxx_namespace": "cxx_swift::swift::clang_importer::serialized_swift_name::owning_iterator",
+  "rust_name": "SerializedSwiftNameOwningIterator",
+  "rust_lifetimes": {
+    "ctx": []
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "cxx_include": "cxx-swift-abi/cxx/include/swift/Basic/TypeCheckerOptions.hxx",
+  "cxx_namespace": "cxx_swift::swift::basic::type_checker_options",
+  "rust_name": "TypeCheckerOptions"
+}

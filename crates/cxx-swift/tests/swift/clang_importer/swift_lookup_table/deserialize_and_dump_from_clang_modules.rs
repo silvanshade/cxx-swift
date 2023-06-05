@@ -1,0 +1,212 @@
+use crate::common::*;
+use cxx_llvm::llvm;
+use cxx_swift::swift;
+use indoc::indoc;
+
+#[test]
+fn test() -> BoxResult<()> {
+    let temp = tempfile::tempdir()?;
+
+    let cache = temp.path().join("cache");
+    std::fs::create_dir(&cache)?;
+
+    let include = temp.path().join("include");
+    std::fs::create_dir(&include)?;
+
+    let a_dot_h = include.join("A.h");
+    std::fs::write(&a_dot_h, indoc! {r#"
+        int foo();
+        int baz();
+        int qux();
+        struct s {
+            int n;
+        };
+        @interface TheClass
+        - (TheClass *)initWithSomeDatumX:(int)x andSomeDatumY:(int)y;
+        @end
+        @protocol TheProtocol
+        - (void)doSomethingWithTheClass:(TheClass *)someInstance;
+        @end
+        #define SQUARE(n) (n*n)
+    "#})?;
+
+    let b_dot_h = include.join("B.h");
+    std::fs::write(&b_dot_h, indoc! {r#"
+        int
+        bar();
+    "#})?;
+
+    let module_dot_modulemap = include.join("module.modulemap");
+    std::fs::write(&module_dot_modulemap, indoc! {r#"
+        module M {
+            header "A.h"
+        }
+        module N {
+            header "B.h"
+        }
+    "#})?;
+
+    let bridging_dot_h = temp.path().join("bridging.h");
+    std::fs::write(&bridging_dot_h, indoc! {r#"
+        #import <A.h>
+        #import <B.h>
+    "#})?;
+
+    swift::initialize_llvm();
+
+    let_cxx!(mut clang_importer_options = swift::ClangImporterOptions::default());
+    clang_importer_options.as_mut().set_bridging_header(&bridging_dot_h);
+    clang_importer_options
+        .as_mut()
+        .modify_extra_args_push_back("-nosysteminc");
+    clang_importer_options.as_mut().modify_extra_args_push_back(&format!(
+        "-I{}",
+        include
+            .as_os_str()
+            .to_str()
+            .expect("path should be a valid UTF-8 string")
+    ));
+    clang_importer_options.as_mut().set_module_cache_path(&cache);
+    clang_importer_options
+        .as_mut()
+        .set_precompiled_header_output_dir(&cache);
+
+    let_cxx!(mut lang_options = swift::LangOptions::default());
+    {
+        let_cxx!(target = llvm::Triple::from(("x86_64", "apple", "darwin")));
+        lang_options.as_mut().set_target(target)?;
+    }
+    let_cxx!(mut sil_options = swift::SilOptions::default());
+    let_cxx!(mut type_checker_options = swift::TypeCheckerOptions::default());
+    let_cxx!(mut search_path_options = swift::SearchPathOptions::default());
+    let_cxx!(mut symbol_graph_options = swift::symbol_graph_gen::SymbolGraphOptions::default());
+    let_cxx!(mut source_manager = swift::SourceManager::default());
+    let_cxx!(mut diagnostic_engine = swift::DiagnosticEngine::from(source_manager.as_mut()));
+    let mut ast_context = {
+        fn pre_module_import_callback(_module_name: llvm::StringRef, _is_overlay: bool) -> bool {
+            true
+        }
+        swift::AstContext::get(
+            lang_options.as_mut(),
+            type_checker_options.as_mut(),
+            sil_options.as_mut(),
+            search_path_options.as_mut(),
+            clang_importer_options.as_mut(),
+            symbol_graph_options.as_mut(),
+            diagnostic_engine.as_mut(),
+            pre_module_import_callback,
+        )
+    };
+
+    let mut clang_importer = {
+        let swift_pch_hash = None;
+        let dependency_tracker = None;
+        swift::ClangImporter::create(ast_context.pin_mut(), swift_pch_hash, dependency_tracker)
+    };
+
+    let_cxx!(mut module_names = llvm::SmallVectorImpl::<swift::Identifier>::default());
+    let mut module_names = module_names.as_mut().as_pin();
+    clang_importer
+        .pin_mut()
+        .collect_visible_top_level_module_names(module_names.as_mut());
+
+    let mut module_count = 0;
+
+    for module_name in module_names.iter() {
+        println!("swift module: processing");
+        module_count += 1;
+        if let Some(module_decl) = {
+            let_cxx!(source_loc = swift::SourceLoc::default());
+            let module_path = {
+                let_cxx!(module_path_builder = swift::ast::import_path::module::Builder::from(*module_name));
+                module_path_builder.get()
+            };
+            let allow_memory_cache = None;
+            clang_importer
+                .pin_mut()
+                .load_module(*source_loc, module_path, allow_memory_cache)
+        } {
+            println!("swift module: successfully loaded");
+            if let Some(clang_module) = module_decl.find_underlying_clang_module() {
+                println!("swift module: found underlying clang module");
+                if let Some(mut table) = clang_importer.find_lookup_table_for_module(clang_module) {
+                    println!("swift module: successfully loaded swift lookup table for clang module");
+                    table.as_mut().deserialize_all();
+                    // table.as_mut().dump();
+                    let_cxx!(search_context = swift::EffectiveClangContext::default());
+                    let_cxx!(mut base_names = table.all_base_names());
+                    println!("swift module: processing base names from lookup table\n");
+                    for base_name in base_names.as_mut().iter() {
+                        println!("name: {}", base_name.get_name().as_str()?);
+                        let_cxx!(mut entries = table.lookup(*base_name, *search_context));
+                        for entry in entries.as_mut().iter() {
+                            if let Some(named_decl) = entry.cast_as_named_decl() {
+                                println!("entry: <NamedDecl>");
+                                let kind = named_decl.get_kind();
+                                println!("kind: {kind:#?}");
+                                match kind {
+                                    cxx_clang::clang::DeclKind::ObjCInterface => {
+                                        if let Some(_objc_interface_decl) = named_decl.cast_as_objc_interface_decl() {
+                                            println!("<successfully casted to ObjCInterfaceDecl>");
+                                        }
+                                    },
+                                    cxx_clang::clang::DeclKind::ObjCProtocol => {
+                                        if let Some(_objc_protocol_decl) = named_decl.cast_as_objc_protocol_decl() {
+                                            println!("<successfully casted to ObjCProtocolDecl>");
+                                        }
+                                    },
+                                    cxx_clang::clang::DeclKind::ObjCMethod => {
+                                        if let Some(_objc_method_decl) = named_decl.cast_as_objc_method_decl() {
+                                            println!("<successfully casted to ObjCMethodDecl>");
+                                        }
+                                    },
+                                    cxx_clang::clang::DeclKind::Record => {
+                                        if let Some(_record_decl) = named_decl.cast_as_record_decl() {
+                                            println!("<successfully casted to RecordDecl>");
+                                        }
+                                    },
+                                    cxx_clang::clang::DeclKind::Typedef => {
+                                        if let Some(_typedef_decl) = named_decl.cast_as_typedef_decl() {
+                                            println!("<successfully casted to TypedefDecl>");
+                                        }
+                                    },
+                                    cxx_clang::clang::DeclKind::Field => {
+                                        if let Some(_field_decl) = named_decl.cast_as_field_decl() {
+                                            println!("<successfully casted to FieldDecl>");
+                                        }
+                                    },
+                                    cxx_clang::clang::DeclKind::Function => {
+                                        if let Some(_function_decl) = named_decl.cast_as_function_decl() {
+                                            println!("<successfully casted to FunctionDecl>");
+                                        }
+                                    },
+                                    _ => {},
+                                }
+                                println!();
+                                continue;
+                            }
+                            if let Some(_macro_info) = entry.cast_as_macro_info() {
+                                println!("entry: <MacroInfo>\n");
+                                continue;
+                            }
+                            if let Some(_module_macro) = entry.cast_as_module_macro() {
+                                println!("entry: <ModuleMacro>\n");
+                                continue;
+                            }
+                        }
+                    }
+                } else {
+                    println!("swift module: failed to load swift lookup table for clang module");
+                }
+            }
+        } else {
+            println!("swift module: failed to load");
+        }
+        println!();
+    }
+
+    assert_eq!(module_count, 2);
+
+    temp.close()?;
+    Ok(())
+}

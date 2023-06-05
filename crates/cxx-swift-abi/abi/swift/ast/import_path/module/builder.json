@@ -1,0 +1,8 @@
+{
+  "cxx_include": "cxx-swift-abi/cxx/include/swift/AST/ImportPath/Module/Builder.hxx",
+  "cxx_namespace": "cxx_swift::swift::ast::import_path::module::builder",
+  "rust_name": "Builder",
+  "rust_lifetimes": {
+    "ctx": []
+  }
+}

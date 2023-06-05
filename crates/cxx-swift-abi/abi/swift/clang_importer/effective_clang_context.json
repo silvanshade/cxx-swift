@@ -1,0 +1,5 @@
+{
+  "cxx_include": "cxx-swift-abi/cxx/include/swift/ClangImporter/EffectiveClangContext.hxx",
+  "cxx_namespace": "cxx_swift::swift::clang_importer::effective_clang_context",
+  "rust_name": "EffectiveClangContext"
+}

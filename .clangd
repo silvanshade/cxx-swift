@@ -1,0 +1,9 @@
+Diagnostics:
+  Suppress: -Wdollar-in-identifier-extension
+  UnusedIncludes: None
+InlayHints:
+  Designators: Yes
+  Enabled: Yes
+  ParameterNames: Yes
+  DeducedTypes: Yes
+

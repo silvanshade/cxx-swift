@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "davidanson.vscode-markdownlint",
+    "llvm-vs-code-extensions.vscode-clangd",
+    "ms-vscode.cmake-tools",
+    "ms-vscode.cpptools-extension-pack",
+    "ms-vscode.cpptools",
+    "rust-lang.rust-analyzer",
+    "tamasfe.even-better-toml",
+    "twxs.cmake",
+    "vadimcn.vscode-lldb"
+  ]
+}

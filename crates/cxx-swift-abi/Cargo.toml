@@ -1,0 +1,20 @@
+[package]
+edition = "2021"
+name = "cxx-swift-abi"
+version = "0.0.0"
+authors = ["silvanshade <silvanshade@users.noreply.github.com>"]
+license = "Apache-2.0 WITH LLVM-exception"
+repository = "https://github.com/silvanshade/cxx-swift"
+description = "Auto-generated Rust bindings for Swift's C++ API"
+# NOTE: `links` is needed so that `cxx/include/**/*.hxx` is exported to dependencies
+links = "cxx-swift-abi"
+
+[build-dependencies]
+cxx-llvm-common = { version = "0.0", path = "../../../cxx-llvm-common" }
+cxx-memory-abi = { version = "0.0", path = "../../../cxx-memory-abi" }
+normpath = "1.1"
+
+[dependencies]
+cxx = { version = "1.0", features = ["c++20"] }
+cxx-llvm-abi = { version = "0.0", path = "../../../cxx-llvm/crates/cxx-llvm-abi" }
+cxx-memory-abi = { version = "0.0", path = "../../../cxx-memory-abi" }

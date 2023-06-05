@@ -663,22 +663,6 @@ tags
 [._]*.un~
 
 
-### https://raw.github.com/github/gitignore/4488915eec0b3a45b5c63ead28f286819c0917de/Global/VirtualEnv.gitignore
-
-# Virtualenv
-# http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
-.Python
-[Bb]in
-[Ii]nclude
-[Ll]ib
-[Ll]ib64
-[Ll]ocal
-[Ss]cripts
-pyvenv.cfg
-.venv
-pip-selfcheck.json
-
-
 ### https://raw.github.com/github/gitignore/4488915eec0b3a45b5c63ead28f286819c0917de/VisualStudio.gitignore
 
 ## Ignore Visual Studio temporary files, build results, and
@@ -743,7 +727,7 @@ BenchmarkDotNet.Artifacts/
 # .NET Core
 project.lock.json
 project.fragment.lock.json
-artifacts/
+# artifacts/
 
 # ASP.NET Scaffolding
 ScaffoldingReadMe.txt
@@ -1134,5 +1118,3 @@ xcuserdata/
 *.xcscmblueprint
 *.xccheckout
 
-### Fixes
-!crates/clang-importer-sys/cxx/**/*
