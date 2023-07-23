@@ -1,4 +1,5 @@
 use crate::common::*;
+use cxx_clang::clang;
 use cxx_llvm::llvm;
 use cxx_swift::swift;
 use indoc::indoc;
@@ -145,37 +146,37 @@ fn test() -> BoxResult<()> {
                                 let kind = named_decl.get_kind();
                                 println!("kind: {kind:#?}");
                                 match kind {
-                                    cxx_clang::clang::DeclKind::ObjCInterface => {
+                                    clang::DeclKind::ObjCInterface => {
                                         if let Some(_objc_interface_decl) = named_decl.cast_as_objc_interface_decl() {
                                             println!("<successfully casted to ObjCInterfaceDecl>");
                                         }
                                     },
-                                    cxx_clang::clang::DeclKind::ObjCProtocol => {
+                                    clang::DeclKind::ObjCProtocol => {
                                         if let Some(_objc_protocol_decl) = named_decl.cast_as_objc_protocol_decl() {
                                             println!("<successfully casted to ObjCProtocolDecl>");
                                         }
                                     },
-                                    cxx_clang::clang::DeclKind::ObjCMethod => {
+                                    clang::DeclKind::ObjCMethod => {
                                         if let Some(_objc_method_decl) = named_decl.cast_as_objc_method_decl() {
                                             println!("<successfully casted to ObjCMethodDecl>");
                                         }
                                     },
-                                    cxx_clang::clang::DeclKind::Record => {
+                                    clang::DeclKind::Record => {
                                         if let Some(_record_decl) = named_decl.cast_as_record_decl() {
                                             println!("<successfully casted to RecordDecl>");
                                         }
                                     },
-                                    cxx_clang::clang::DeclKind::Typedef => {
+                                    clang::DeclKind::Typedef => {
                                         if let Some(_typedef_decl) = named_decl.cast_as_typedef_decl() {
                                             println!("<successfully casted to TypedefDecl>");
                                         }
                                     },
-                                    cxx_clang::clang::DeclKind::Field => {
+                                    clang::DeclKind::Field => {
                                         if let Some(_field_decl) = named_decl.cast_as_field_decl() {
                                             println!("<successfully casted to FieldDecl>");
                                         }
                                     },
-                                    cxx_clang::clang::DeclKind::Function => {
+                                    clang::DeclKind::Function => {
                                         if let Some(_function_decl) = named_decl.cast_as_function_decl() {
                                             println!("<successfully casted to FunctionDecl>");
                                         }
