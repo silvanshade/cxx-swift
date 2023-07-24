@@ -3,10 +3,10 @@ mod ffi {
     extern "C++" {
         include!("cxx-clang-abi/cxx/include/clang/Basic/Module.hxx");
         include!("cxx-llvm-abi/cxx/include/llvm/ADT/StringRef.hxx");
-        include!("cxx-swift-abi/cxx/include/llvm/ADT/SmallVectorImpl/swift/AST/Identifier.hxx");
         include!("cxx-swift-abi/cxx/include/swift/AST/ASTContext.hxx");
         include!("cxx-swift-abi/cxx/include/swift/AST/DependencyTracker.hxx");
         include!("cxx-swift-abi/cxx/include/swift/AST/Identifier.hxx");
+        include!("cxx-swift-abi/cxx/include/swift/AST/Identifier/SmallVectorImpl.hxx");
         include!("cxx-swift-abi/cxx/include/swift/AST/ImportPath/Module.hxx");
         include!("cxx-swift-abi/cxx/include/swift/AST/ModuleDecl.hxx");
         include!("cxx-swift-abi/cxx/include/swift/Basic/SourceLoc.hxx");
@@ -27,6 +27,11 @@ mod ffi {
         #[namespace = "cxx_swift::swift::ast::dependency_tracker"]
         type DependencyTracker = crate::ffi::swift::ast::dependency_tracker::DependencyTracker;
 
+        #[namespace = "cxx_swift::swift::ast::identifier::small_vector_impl"]
+        #[cxx_name = "SmallVectorImpl"]
+        type IdentifierSmallVectorImpl<'ctx> =
+            crate::ffi::swift::ast::identifier::small_vector_impl::SmallVectorImpl<'ctx>;
+
         #[namespace = "cxx_swift::swift::ast::import_path::module"]
         #[cxx_name = "Module"]
         type ImportPathModule<'ctx> = crate::ffi::swift::ast::import_path::module::Module<'ctx>;
@@ -36,12 +41,6 @@ mod ffi {
 
         #[namespace = "cxx_llvm::llvm::adt::string_ref"]
         type StringRef<'a> = cxx_llvm::llvm::StringRef<'a>;
-
-        include!("cxx-swift-abi/cxx/include/swift/AST/Identifier.hxx");
-
-        #[namespace = "cxx_llvm::llvm::adt::small_vector_impl::swift::ast::identifier"]
-        type SmallVectorImpl<'ctx> =
-            crate::ffi::llvm::adt::small_vector_impl::swift::ast::identifier::SmallVectorImpl<'ctx>;
 
         #[namespace = "cxx_swift::swift::basic::source_loc"]
         type SourceLoc = crate::ffi::swift::basic::source_loc::SourceLoc;
@@ -63,7 +62,7 @@ mod ffi {
 
         fn collect_visible_top_level_module_names<'ctx>(
             This: Pin<&mut ClangImporter<'ctx>>,
-            module_names: Pin<&mut SmallVectorImpl<'ctx>>,
+            module_names: Pin<&mut IdentifierSmallVectorImpl<'ctx>>,
         );
 
         fn load_module<'ctx>(

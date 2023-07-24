@@ -137,10 +137,10 @@ fn test() -> BoxResult<()> {
                     let_cxx!(search_context = swift::EffectiveClangContext::default());
                     let_cxx!(mut base_names = table.all_base_names());
                     println!("swift module: processing base names from lookup table\n");
-                    for base_name in base_names.as_mut().iter() {
+                    for base_name in base_names.iter() {
                         println!("name: {}", base_name.get_name().as_str()?);
                         let_cxx!(mut entries = table.lookup(*base_name, *search_context));
-                        for entry in entries.as_mut().iter() {
+                        for entry in entries.iter() {
                             if let Some(named_decl) = entry.cast_as_named_decl() {
                                 println!("entry: <NamedDecl>");
                                 let kind = named_decl.get_kind();

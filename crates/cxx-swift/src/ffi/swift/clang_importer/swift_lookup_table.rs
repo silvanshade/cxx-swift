@@ -3,8 +3,11 @@ pub(crate) mod single_entry;
 use crate::{
     ffi::swift::clang_importer::{
         effective_clang_context::EffectiveClangContext,
-        serialized_swift_name::{owning_iterator::SerializedSwiftNameOwningIterator, SerializedSwiftName},
-        swift_lookup_table::single_entry::owning_iterator::SwiftLookupTableSingleEntryOwningIterator,
+        serialized_swift_name::{
+            small_vector_boxed::SmallVectorBoxed as SerializedSwiftNameSmallVectorBoxed,
+            SerializedSwiftName,
+        },
+        swift_lookup_table::single_entry::small_vector_boxed::SmallVectorBoxed as SwiftLookupTableSingleEntrySmallVectorBoxed,
     },
     gen::swift::clang_importer::swift_lookup_table,
 };
@@ -18,7 +21,7 @@ impl<'ctx> SwiftLookupTable<'ctx> {
         &self,
         base_name: SerializedSwiftName<'ctx>,
         search_context: EffectiveClangContext,
-    ) -> impl cxx_memory::New<Output = SwiftLookupTableSingleEntryOwningIterator<'ctx>> + '_ {
+    ) -> impl cxx_memory::New<Output = SwiftLookupTableSingleEntrySmallVectorBoxed<'ctx>> + '_ {
         unsafe {
             cxx_memory::new::by_raw(move |this| {
                 let this = this.get_unchecked_mut().as_mut_ptr();
@@ -28,7 +31,7 @@ impl<'ctx> SwiftLookupTable<'ctx> {
     }
 
     #[inline]
-    pub fn all_base_names(&self) -> impl cxx_memory::New<Output = SerializedSwiftNameOwningIterator> + '_ {
+    pub fn all_base_names(&self) -> impl cxx_memory::New<Output = SerializedSwiftNameSmallVectorBoxed> + '_ {
         unsafe {
             cxx_memory::new::by_raw(move |this| {
                 let this = this.get_unchecked_mut().as_mut_ptr();

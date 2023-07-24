@@ -1,0 +1,9 @@
+{
+  "cxx_include": "cxx-swift-abi/cxx/include/swift/AST/Identifier/SmallVector.hxx",
+  "cxx_namespace": "cxx_swift::swift::ast::identifier::small_vector",
+  "rust_name": "SmallVector",
+  "rust_impl_default": false,
+  "rust_lifetimes": {
+    "ctx": []
+  }
+}

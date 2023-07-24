@@ -1,11 +1,12 @@
 #pragma once
 
+#include "cxx-llvm-abi/cxx/include/llvm/ADT/SmallVectorBoxed.hxx"
 #include "cxx-memory-abi/cxx/include/cxx-memory-abi.hxx"
 #include "swift/lib/ClangImporter/SwiftLookupTable.h"
 
-#include <iostream>
-
 namespace cxx_swift::swift::clang_importer::swift_lookup_table {
+template<typename T>
+using SmallVectorBoxed = ::cxx_llvm::llvm::adt::small_vector_boxed::SmallVectorBoxed<T>;
 using SwiftLookupTable = ::swift::SwiftLookupTable;
 using F = SwiftLookupTable;
 
@@ -107,24 +108,22 @@ lookup(
   F const& This [[clang::lifetimebound]],
   ::swift::SerializedSwiftName base_name,
   ::swift::EffectiveClangContext search_context,
-  ::cxx_memory::abi::OwningIterator<::swift::SwiftLookupTable::SingleEntry>* out
+  SmallVectorBoxed<::swift::SwiftLookupTable::SingleEntry>* out
 ) noexcept -> void
 {
   // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
   auto&& container = const_cast<F&>(This).lookup(base_name, search_context);
-  new (out)::cxx_memory::abi::OwningIterator<::swift::SwiftLookupTable::SingleEntry>{ std::move(container) };
+  new (out) SmallVectorBoxed<::swift::SwiftLookupTable::SingleEntry>{ std::move(container) };
 }
 
 [[gnu::always_inline]]
 static inline auto
-all_base_names(
-  F const& This [[clang::lifetimebound]],
-  ::cxx_memory::abi::OwningIterator<::swift::SerializedSwiftName>* out
-) noexcept -> void
+all_base_names(F const& This [[clang::lifetimebound]], SmallVectorBoxed<::swift::SerializedSwiftName>* out) noexcept
+  -> void
 {
   // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
   auto&& container = const_cast<F&>(This).allBaseNames();
-  new (out)::cxx_memory::abi::OwningIterator<::swift::SerializedSwiftName>{ std::move(container) };
+  new (out) SmallVectorBoxed<::swift::SerializedSwiftName>{ std::move(container) };
 }
 
 [[gnu::always_inline]]

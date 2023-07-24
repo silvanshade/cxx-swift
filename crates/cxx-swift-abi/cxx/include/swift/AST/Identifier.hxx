@@ -71,3 +71,29 @@ cxx_is_trivially_destructible() noexcept -> bool
 }
 
 } // namespace cxx_swift::swift::ast::identifier
+
+namespace cxx_swift::swift::ast::identifier {
+[[gnu::always_inline]]
+static inline auto
+cxx_default_new(F* This [[clang::lifetimebound]]) noexcept -> void
+{
+  return cxx_memory::abi::cxx_default_new(This);
+}
+
+[[gnu::always_inline]]
+static inline auto
+cxx_copy_new(F* This [[clang::lifetimebound]], F const& that [[clang::lifetimebound]]) noexcept -> void
+{
+  return cxx_memory::abi::cxx_copy_new(This, that);
+}
+
+[[gnu::always_inline]]
+static inline auto
+cxx_move_new(F* This [[clang::lifetimebound]], F* that [[clang::lifetimebound]]) noexcept -> void
+{
+  // NOLINTNEXTLINE(hicpp-move-const-arg, performance-move-const-arg)
+  F&& that_rvalue = ::std::move(*that);
+  return cxx_memory::abi::cxx_move_new(This, ::std::forward<F&&>(that_rvalue));
+}
+
+} // namespace cxx_swift::swift::ast::identifier

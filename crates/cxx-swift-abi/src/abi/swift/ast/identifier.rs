@@ -1,4 +1,6 @@
 #![doc = r" NOTE: This module is auto-generated and should not be edited."]
+pub mod small_vector;
+pub mod small_vector_impl;
 #[cxx::bridge]
 mod ffi {
     #[namespace = "cxx_swift::swift::ast::identifier"]
@@ -18,7 +20,7 @@ mod ffi {
 pub use ffi::*;
 fn artifact_info() -> ::cxx_memory_abi::CxxAbiArtifactInfo {
     let path_components = vec!["swift", "ast", "identifier"];
-    let path_descendants = vec![];
+    let path_descendants = vec!["small_vector", "small_vector_impl"];
     let cxx_include = "cxx-swift-abi/cxx/include/swift/AST/Identifier.hxx";
     let cxx_namespace = "cxx_swift::swift::ast::identifier";
     let cxx_name = "Identifier";

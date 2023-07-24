@@ -1,5 +1,7 @@
 #![doc = r" NOTE: This module is auto-generated and should not be edited."]
-pub(crate) mod owning_iterator;
+pub(crate) mod small_vector;
+pub(crate) mod small_vector_boxed;
+pub(crate) mod small_vector_impl;
 #[derive(Clone, Copy)]
 #[repr(C, align(8))]
 pub struct SwiftLookupTableSingleEntry<'ctx> {

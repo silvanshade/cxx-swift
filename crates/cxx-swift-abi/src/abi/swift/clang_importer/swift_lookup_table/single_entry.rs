@@ -1,5 +1,7 @@
 #![doc = r" NOTE: This module is auto-generated and should not be edited."]
-pub mod owning_iterator;
+pub mod small_vector;
+pub mod small_vector_boxed;
+pub mod small_vector_impl;
 #[cxx::bridge]
 mod ffi {
     #[namespace = "cxx_swift::swift::clang_importer::swift_lookup_table::single_entry"]
@@ -19,7 +21,7 @@ mod ffi {
 pub use ffi::*;
 fn artifact_info() -> ::cxx_memory_abi::CxxAbiArtifactInfo {
     let path_components = vec!["swift", "clang_importer", "swift_lookup_table", "single_entry"];
-    let path_descendants = vec!["owning_iterator"];
+    let path_descendants = vec!["small_vector", "small_vector_boxed", "small_vector_impl"];
     let cxx_include = "cxx-swift-abi/cxx/include/swift/ClangImporter/SwiftLookupTable/SingleEntry.hxx";
     let cxx_namespace = "cxx_swift::swift::clang_importer::swift_lookup_table::single_entry";
     let cxx_name = "SwiftLookupTableSingleEntry";

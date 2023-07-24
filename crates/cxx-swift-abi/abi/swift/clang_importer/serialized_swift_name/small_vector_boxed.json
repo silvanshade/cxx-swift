@@ -1,0 +1,8 @@
+{
+  "cxx_include": "cxx-swift-abi/cxx/include/swift/ClangImporter/SerializedSwiftName/SmallVectorBoxed.hxx",
+  "cxx_namespace": "cxx_swift::swift::clang_importer::serialized_swift_name::small_vector_boxed",
+  "rust_name": "SmallVectorBoxed",
+  "rust_lifetimes": {
+    "ctx": []
+  }
+}

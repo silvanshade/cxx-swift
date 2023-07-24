@@ -1,23 +1,5 @@
 mod abi;
 mod ffi {
-    pub(crate) mod llvm {
-        pub(crate) mod adt {
-            pub(crate) mod small_vector {
-                pub(crate) mod swift {
-                    pub(crate) mod ast {
-                        pub(crate) mod identifier;
-                    }
-                }
-            }
-            pub(crate) mod small_vector_impl {
-                pub(crate) mod swift {
-                    pub(crate) mod ast {
-                        pub(crate) mod identifier;
-                    }
-                }
-            }
-        }
-    }
     pub(crate) mod swift {
         pub(crate) mod ast {
             pub(crate) mod ast_context;
@@ -58,24 +40,6 @@ mod ffi {
     }
 }
 mod gen {
-    pub(crate) mod llvm {
-        pub(crate) mod adt {
-            pub(crate) mod small_vector {
-                pub(crate) mod swift {
-                    pub(crate) mod ast {
-                        pub(crate) mod identifier;
-                    }
-                }
-            }
-            pub(crate) mod small_vector_impl {
-                pub(crate) mod swift {
-                    pub(crate) mod ast {
-                        pub(crate) mod identifier;
-                    }
-                }
-            }
-        }
-    }
     pub(crate) mod swift {
         pub(crate) mod ast {
             pub(crate) mod ast_context;
@@ -86,6 +50,7 @@ mod gen {
             pub(crate) mod dependency_tracker;
             pub(crate) mod diagnostic_engine;
             pub(crate) mod expr;
+            pub(crate) mod identifier;
             pub(crate) mod import_path {
                 pub(crate) mod module;
             }
@@ -176,16 +141,16 @@ pub mod swift {
         }
         pub mod swift_lookup_table {
             pub mod single_entry {
-                pub mod owning_iterator {
-                    pub use crate::ffi::swift::clang_importer::swift_lookup_table::single_entry::owning_iterator::SwiftLookupTableSingleEntryOwningIterator;
+                pub mod small_vector_boxed {
+                    pub use crate::ffi::swift::clang_importer::swift_lookup_table::single_entry::small_vector_boxed::SmallVectorBoxed;
                 }
                 pub use crate::ffi::swift::clang_importer::swift_lookup_table::single_entry::SwiftLookupTableSingleEntry;
             }
             pub use crate::ffi::swift::clang_importer::swift_lookup_table::SwiftLookupTable;
         }
         pub mod serialized_swift_name {
-            pub mod owning_iterator {
-                pub use crate::ffi::swift::clang_importer::serialized_swift_name::owning_iterator::SerializedSwiftNameOwningIterator;
+            pub mod small_vector_boxed {
+                pub use crate::ffi::swift::clang_importer::serialized_swift_name::small_vector_boxed::SmallVectorBoxed;
             }
             pub use crate::ffi::swift::clang_importer::serialized_swift_name::SerializedSwiftName;
         }
@@ -222,10 +187,13 @@ pub mod swift {
             clang_importer::{
                 clang_importer::ClangImporter,
                 effective_clang_context::EffectiveClangContext,
-                serialized_swift_name::{owning_iterator::SerializedSwiftNameOwningIterator, SerializedSwiftName},
+                serialized_swift_name::{
+                    small_vector_boxed::SmallVectorBoxed as SerializedSwiftNameSmallVectorBoxed,
+                    SerializedSwiftName,
+                },
                 swift_lookup_table::{
                     single_entry::{
-                        owning_iterator::SwiftLookupTableSingleEntryOwningIterator,
+                        small_vector_boxed::SmallVectorBoxed as SwiftLookupTableSingleEntrySmallVectorBoxed,
                         SwiftLookupTableSingleEntry,
                     },
                     SwiftLookupTable,

@@ -1,0 +1,8 @@
+{
+  "cxx_include": "cxx-swift-abi/cxx/include/swift/ClangImporter/SwiftLookupTable/SingleEntry/SmallVectorBoxed.hxx",
+  "cxx_namespace": "cxx_swift::swift::clang_importer::swift_lookup_table::single_entry::small_vector_boxed",
+  "rust_name": "SmallVectorBoxed",
+  "rust_lifetimes": {
+    "ctx": []
+  }
+}

@@ -13,8 +13,6 @@ pub fn project_dir() -> BoxResult<std::path::PathBuf> {
 fn process_cxx() -> BoxResult<()> {
     let dirs = cxx_llvm_common::Dirs::new()?;
     let rust_source_files = &[
-        "src/abi/llvm/adt/small_vector_impl/swift/ast/identifier.rs",
-        "src/abi/llvm/adt/small_vector/swift/ast/identifier.rs",
         "src/abi/swift/ast/ast_context.rs",
         "src/abi/swift/ast/ast_walker_base.rs",
         "src/abi/swift/ast/ast_walker_rust.rs",
@@ -26,6 +24,8 @@ fn process_cxx() -> BoxResult<()> {
         "src/abi/swift/ast/diagnostic_engine.rs",
         "src/abi/swift/ast/expr.rs",
         "src/abi/swift/ast/identifier.rs",
+        "src/abi/swift/ast/identifier/small_vector.rs",
+        "src/abi/swift/ast/identifier/small_vector_impl.rs",
         "src/abi/swift/ast/import_path/module.rs",
         "src/abi/swift/ast/import_path/module/builder.rs",
         "src/abi/swift/ast/module_decl.rs",
@@ -42,10 +42,14 @@ fn process_cxx() -> BoxResult<()> {
         "src/abi/swift/clang_importer/clang_importer.rs",
         "src/abi/swift/clang_importer/effective_clang_context.rs",
         "src/abi/swift/clang_importer/serialized_swift_name.rs",
-        "src/abi/swift/clang_importer/serialized_swift_name/owning_iterator.rs",
+        "src/abi/swift/clang_importer/serialized_swift_name/small_vector.rs",
+        "src/abi/swift/clang_importer/serialized_swift_name/small_vector_boxed.rs",
+        "src/abi/swift/clang_importer/serialized_swift_name/small_vector_impl.rs",
         "src/abi/swift/clang_importer/swift_lookup_table.rs",
         "src/abi/swift/clang_importer/swift_lookup_table/single_entry.rs",
-        "src/abi/swift/clang_importer/swift_lookup_table/single_entry/owning_iterator.rs",
+        "src/abi/swift/clang_importer/swift_lookup_table/single_entry/small_vector.rs",
+        "src/abi/swift/clang_importer/swift_lookup_table/single_entry/small_vector_boxed.rs",
+        "src/abi/swift/clang_importer/swift_lookup_table/single_entry/small_vector_impl.rs",
         "src/abi/swift/symbol_graph_gen/symbol_graph_options.rs",
         "src/proxy/ast_walker_dyn.rs",
     ];

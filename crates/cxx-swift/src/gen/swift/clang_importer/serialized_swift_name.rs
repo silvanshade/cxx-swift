@@ -1,4 +1,6 @@
-pub(crate) mod owning_iterator;
+pub(crate) mod small_vector;
+pub(crate) mod small_vector_boxed;
+pub(crate) mod small_vector_impl;
 
 #[cxx::bridge]
 mod ffi {
