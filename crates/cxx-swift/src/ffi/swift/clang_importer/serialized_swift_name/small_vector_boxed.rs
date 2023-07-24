@@ -36,3 +36,13 @@ impl<'ctx> core::ops::Deref for SmallVectorBoxed<'ctx> {
         self.as_ref_small_vector_impl()
     }
 }
+
+impl<'a, 'ctx> IntoIterator for &'a SmallVectorBoxed<'ctx> {
+    type Item = <&'a SmallVectorImpl<SerializedSwiftName<'ctx>> as IntoIterator>::Item;
+    type IntoIter = <&'a SmallVectorImpl<SerializedSwiftName<'ctx>> as IntoIterator>::IntoIter;
+
+    #[inline]
+    fn into_iter(self) -> Self::IntoIter {
+        self.as_ref_small_vector_impl().into_iter()
+    }
+}
