@@ -17,17 +17,23 @@ fn test() -> BoxResult<()> {
     let a_dot_h = include.join("A.h");
     std::fs::write(&a_dot_h, indoc! {r#"
         int foo();
+
         int baz();
+
         int qux();
+
         struct s {
             int n;
         };
+
         @interface TheClass
         - (TheClass *)initWithSomeDatumX:(int)x andSomeDatumY:(int)y;
         @end
+
         @protocol TheProtocol
         - (void)doSomethingWithTheClass:(TheClass *)someInstance;
         @end
+
         #define SQUARE(n) (n*n)
     "#})?;
 
@@ -113,19 +119,19 @@ fn test() -> BoxResult<()> {
 
     let mut module_count = 0;
 
-    for module_name in module_names.iter() {
+    for module_name in module_names.iter().copied() {
         println!("swift module: processing");
         module_count += 1;
         if let Some(module_decl) = {
-            let_cxx!(source_loc = swift::SourceLoc::default());
+            let source_loc = *cxx!(swift::SourceLoc::default());
             let module_path = {
-                let_cxx!(module_path_builder = swift::ast::import_path::module::Builder::from(*module_name));
+                let_cxx!(module_path_builder = swift::ast::import_path::module::Builder::from(module_name));
                 module_path_builder.get()
             };
             let allow_memory_cache = None;
             clang_importer
                 .pin_mut()
-                .load_module(*source_loc, module_path, allow_memory_cache)
+                .load_module(source_loc, module_path, allow_memory_cache)
         } {
             println!("swift module: successfully loaded");
             if let Some(clang_module) = module_decl.find_underlying_clang_module() {
@@ -135,12 +141,12 @@ fn test() -> BoxResult<()> {
                     table.as_mut().deserialize_all();
                     // table.as_mut().dump();
                     let_cxx!(search_context = swift::EffectiveClangContext::default());
-                    let_cxx!(mut base_names = table.all_base_names());
+                    let_cxx!(base_names = table.all_base_names());
                     println!("swift module: processing base names from lookup table\n");
-                    for base_name in base_names.iter() {
+                    for base_name in &*base_names {
                         println!("name: {}", base_name.get_name().as_str()?);
-                        let_cxx!(mut entries = table.lookup(*base_name, *search_context));
-                        for entry in entries.iter() {
+                        let_cxx!(entries = table.lookup(*base_name, *search_context));
+                        for entry in &*entries {
                             if let Some(named_decl) = entry.cast_as_named_decl() {
                                 println!("entry: <NamedDecl>");
                                 let kind = named_decl.get_kind();
