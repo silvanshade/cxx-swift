@@ -4,6 +4,5 @@
   "rust_name": "ModuleDecl",
   "rust_lifetimes": {
     "ctx": []
-  },
-  "rust_impl_drop": false
+  }
 }

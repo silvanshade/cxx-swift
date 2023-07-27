@@ -6,96 +6,20 @@
 #include "swift/lib/ClangImporter/SwiftLookupTable.h"
 
 namespace cxx_swift::swift::clang_importer::serialized_swift_name::small_vector_impl {
-using T = ::swift::SerializedSwiftName;
-using SmallVectorImpl = ::llvm::SmallVectorImpl<T>;
-using F = SmallVectorImpl;
-
-[[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
-constexpr static inline auto
-cxx_abi_align() noexcept -> size_t
-{
-  return cxx_memory::abi::cxx_abi_align<F>();
-}
-
-[[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
-constexpr static inline auto
-cxx_abi_size() noexcept -> size_t
-{
-  return cxx_memory::abi::cxx_abi_size<F>();
-}
-
-[[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
-constexpr static inline auto
-cxx_is_default_constructible() noexcept -> bool
-{
-  return cxx_memory::abi::cxx_is_default_constructible<F>();
-}
-
-[[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
-constexpr static inline auto
-cxx_is_copy_constructible() noexcept -> bool
-{
-  return cxx_memory::abi::cxx_is_copy_constructible<F>();
-}
-
-[[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
-constexpr static inline auto
-cxx_is_move_constructible() noexcept -> bool
-{
-  return cxx_memory::abi::cxx_is_move_constructible<F>();
-}
-
-[[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
-constexpr static inline auto
-cxx_is_destructible() noexcept -> bool
-{
-  return cxx_memory::abi::cxx_is_destructible<F>();
-}
-
-[[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
-constexpr static inline auto
-cxx_is_trivially_copyable() noexcept -> bool
-{
-  return cxx_memory::abi::cxx_is_trivially_copyable<F>();
-}
-
-[[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
-constexpr static inline auto
-cxx_is_trivially_movable() noexcept -> bool
-{
-  return cxx_memory::abi::cxx_is_trivially_movable<F>();
-}
-
-[[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
-constexpr static inline auto
-cxx_is_trivially_destructible() noexcept -> bool
-{
-  return cxx_memory::abi::cxx_is_trivially_destructible<F>();
-}
-
+CXX_MEMORY_ABI_PRELUDE(SmallVectorImpl, ::llvm::SmallVectorImpl, ::swift::SerializedSwiftName)
 } // namespace cxx_swift::swift::clang_importer::serialized_swift_name::small_vector_impl
 
 namespace cxx_swift::swift::clang_importer::serialized_swift_name::small_vector_impl {
 [[gnu::always_inline]]
 static inline auto
-cxx_destruct(F* This [[clang::lifetimebound]]) -> void
-{
-  return cxx_memory::abi::cxx_destruct(This);
-}
-
-} // namespace cxx_swift::swift::clang_importer::serialized_swift_name::small_vector_impl
-
-namespace cxx_swift::swift::clang_importer::serialized_swift_name::small_vector_impl {
-[[gnu::always_inline]]
-static inline auto
-as_slice(F const& This [[clang::lifetimebound]]) -> rust::Slice<const T>
+as_slice(Self const& This [[clang::lifetimebound]]) -> rust::Slice<const TyArg0>
 {
   return rust::Slice{ This.data(), This.size() };
 }
 
 [[gnu::always_inline]]
 static inline auto
-as_mut_slice(F& This [[clang::lifetimebound]]) -> rust::Slice<T>
+as_mut_slice(Self& This [[clang::lifetimebound]]) -> rust::Slice<TyArg0>
 {
   return rust::Slice{ This.data(), This.size() };
 }

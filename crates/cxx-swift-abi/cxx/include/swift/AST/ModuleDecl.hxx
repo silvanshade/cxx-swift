@@ -5,79 +5,27 @@
 
 #include "clang/Basic/Module.h"
 
+namespace cxx_memory::abi {
+using T = ::swift::ModuleDecl;
+
+template<>
+[[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
+constexpr inline auto
+cxx_is_destructible<T>() noexcept -> bool
+{
+  return false;
+}
+
+} // namespace cxx_memory::abi
+
 namespace cxx_swift::swift::ast::module_decl {
-using ModuleDecl = ::swift::ModuleDecl;
-using F = ModuleDecl;
-
-[[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
-constexpr inline auto
-cxx_abi_align() noexcept -> size_t
-{
-  return cxx_memory::abi::cxx_abi_align<F>();
-}
-
-[[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
-constexpr inline auto
-cxx_abi_size() noexcept -> size_t
-{
-  return cxx_memory::abi::cxx_abi_size<F>();
-}
-
-[[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
-constexpr static inline auto
-cxx_is_default_constructible() noexcept -> bool
-{
-  return cxx_memory::abi::cxx_is_default_constructible<F>();
-}
-
-[[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
-constexpr static inline auto
-cxx_is_copy_constructible() noexcept -> bool
-{
-  return cxx_memory::abi::cxx_is_copy_constructible<F>();
-}
-
-[[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
-constexpr static inline auto
-cxx_is_move_constructible() noexcept -> bool
-{
-  return cxx_memory::abi::cxx_is_move_constructible<F>();
-}
-
-[[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
-constexpr static inline auto
-cxx_is_destructible() noexcept -> bool
-{
-  return cxx_memory::abi::cxx_is_destructible<F>();
-}
-
-[[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
-constexpr static inline auto
-cxx_is_trivially_copyable() noexcept -> bool
-{
-  return cxx_memory::abi::cxx_is_trivially_copyable<F>();
-}
-
-[[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
-constexpr static inline auto
-cxx_is_trivially_movable() noexcept -> bool
-{
-  return cxx_memory::abi::cxx_is_trivially_movable<F>();
-}
-
-[[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
-constexpr static inline auto
-cxx_is_trivially_destructible() noexcept -> bool
-{
-  return cxx_memory::abi::cxx_is_trivially_destructible<F>();
-}
-
+CXX_MEMORY_ABI_PRELUDE(ModuleDecl, ::swift::ModuleDecl)
 } // namespace cxx_swift::swift::ast::module_decl
 
 namespace cxx_swift::swift::ast::module_decl {
 [[nodiscard]] [[gnu::always_inline]]
 static inline auto
-find_underlying_clang_module(F const& This [[clang::lifetimebound]]) noexcept -> ::clang::Module const*
+find_underlying_clang_module(Self const& This [[clang::lifetimebound]]) noexcept -> ::clang::Module const*
 {
   return This.findUnderlyingClangModule();
 }

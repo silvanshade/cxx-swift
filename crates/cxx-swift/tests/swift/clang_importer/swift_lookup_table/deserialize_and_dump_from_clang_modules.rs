@@ -19,28 +19,28 @@ fn test() -> BoxResult<()> {
         // Enums and Options
         #define __CF_ENUM_GET_MACRO(_1, _2, NAME, ...) NAME
         #if (__cplusplus && __cplusplus >= 201103L &&                                  \
-            (__has_extension(cxx_strong_enums) || __has_feature(objc_fixed_enum))) || \
+            (__has_extension(cxx_strong_enums) || __has_feature(objc_fixed_enum))) ||  \
             (!__cplusplus && __has_feature(objc_fixed_enum))
         #define __CF_NAMED_ENUM(_type, _name)                                          \
-        enum _name : _type _name;                                                    \
+        enum _name : _type _name;                                                      \
         enum _name : _type
         #define __CF_ANON_ENUM(_type) enum : _type
         #if (__cplusplus)
         #define CF_OPTIONS(_type, _name)                                               \
-        _type _name;                                                                 \
+        _type _name;                                                                   \
         enum : _type
         #else
         #define CF_OPTIONS(_type, _name)                                               \
-        enum _name : _type _name;                                                    \
+        enum _name : _type _name;                                                      \
         enum _name : _type
         #endif
         #else
         #define __CF_NAMED_ENUM(_type, _name)                                          \
-        _type _name;                                                                 \
+        _type _name;                                                                   \
         enum
         #define __CF_ANON_ENUM(_type) enum
         #define CF_OPTIONS(_type, _name)                                               \
-        _type _name;                                                                 \
+        _type _name;                                                                   \
         enum
         #endif
 
@@ -51,7 +51,7 @@ fn test() -> BoxResult<()> {
         #define NS_OPTIONS(_type, _name) CF_OPTIONS(_type, _name)
 
         #define MY_ERROR_ENUM(_type, _name, _domain)                                   \
-        enum _name : _type _name;                                                    \
+        enum _name : _type _name;                                                      \
         enum __attribute__((ns_error_domain(_domain))) _name : _type
 
         @class NSString;
@@ -235,17 +235,17 @@ fn test() -> BoxResult<()> {
                                 println!("kind: {kind:#?}");
                                 match kind {
                                     clang::DeclKind::ObjCInterface => {
-                                        if let Some(_objc_interface_decl) = named_decl.cast_as_objc_interface_decl() {
+                                        if let Some(_obj_c_interface_decl) = named_decl.cast_as_obj_c_interface_decl() {
                                             println!("<successfully casted to ObjCInterfaceDecl>");
                                         }
                                     },
                                     clang::DeclKind::ObjCProtocol => {
-                                        if let Some(_objc_protocol_decl) = named_decl.cast_as_objc_protocol_decl() {
+                                        if let Some(_obj_c_protocol_decl) = named_decl.cast_as_obj_c_protocol_decl() {
                                             println!("<successfully casted to ObjCProtocolDecl>");
                                         }
                                     },
                                     clang::DeclKind::ObjCMethod => {
-                                        if let Some(_objc_method_decl) = named_decl.cast_as_objc_method_decl() {
+                                        if let Some(_obj_c_method_decl) = named_decl.cast_as_obj_c_method_decl() {
                                             println!("<successfully casted to ObjCMethodDecl>");
                                         }
                                     },

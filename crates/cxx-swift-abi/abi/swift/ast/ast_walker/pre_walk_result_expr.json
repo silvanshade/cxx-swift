@@ -4,7 +4,5 @@
   "rust_name": "PreWalkResultExpr",
   "rust_lifetimes": {
     "ctx": []
-  },
-  "rust_impl_copy_new": false,
-  "rust_impl_move_new": false
+  }
 }

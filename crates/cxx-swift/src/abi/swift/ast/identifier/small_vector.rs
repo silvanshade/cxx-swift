@@ -25,6 +25,17 @@ impl<'ctx> ::core::fmt::Debug for SmallVector<'ctx> {
         f.debug_struct("SmallVector").finish()
     }
 }
+impl<'ctx> SmallVector<'ctx> {
+    #[inline]
+    pub fn default() -> impl ::cxx_memory::New<Output = SmallVector<'ctx>> {
+        unsafe {
+            ::cxx_memory::new::by_raw(move |this| {
+                let this = this.get_unchecked_mut().as_mut_ptr();
+                self::ffi::cxx_default_new(this);
+            })
+        }
+    }
+}
 unsafe impl<'ctx> ::cxx_memory::CopyNew for SmallVector<'ctx> {
     #[inline]
     unsafe fn copy_new(that: &Self, this: ::core::pin::Pin<&mut ::core::mem::MaybeUninit<Self>>) {
