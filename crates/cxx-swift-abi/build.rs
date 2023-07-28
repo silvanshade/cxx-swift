@@ -1,12 +1,9 @@
-use normpath::PathExt;
-
 type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
 type BoxResult<T> = Result<T, BoxError>;
 
 pub fn project_dir() -> BoxResult<std::path::PathBuf> {
     let cargo_manifest_dir = std::env::var("CARGO_MANIFEST_DIR")?;
     let project_dir = std::path::PathBuf::from(cargo_manifest_dir);
-    let project_dir = project_dir.normalize()?.into_path_buf();
     Ok(project_dir)
 }
 

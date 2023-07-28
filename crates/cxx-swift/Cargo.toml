@@ -15,17 +15,17 @@ debug = []
 tracing = ["debug", "dep:tracing", "dep:tracing-forest", "dep:tracing-subscriber"]
 
 [build-dependencies]
-cxx-llvm-common = { version = "0.0", path = "../../../cxx-llvm-common" }
+cxx-llvm-common = { version = "0.0", git = "https://github.com/silvanshade/cxx-llvm-common" }
 cxx-swift-abi = { version = "0.0", path = "../cxx-swift-abi" }
 
 [dependencies]
 cxx = { version = "1.0", features = ["c++20"] }
-cxx-clang = { version = "0.0", path = "../../../cxx-clang/crates/cxx-clang" }
-cxx-clang-abi = { version = "0.0", path = "../../../cxx-clang/crates/cxx-clang-abi" }
-cxx-llvm = { version = "0.0", path = "../../../cxx-llvm/crates/cxx-llvm" }
-cxx-llvm-abi = { version = "0.0", path = "../../../cxx-llvm/crates/cxx-llvm-abi" }
-cxx-memory = { version = "0.0", path = "../../../cxx-memory/crates/cxx-memory" }
-cxx-memory-abi = { version = "0.0", path = "../../../cxx-memory/crates/cxx-memory-abi" }
+cxx-clang = { version = "0.0", git = "https://github.com/silvanshade/cxx-clang" }
+cxx-clang-abi = { version = "0.0", git = "https://github.com/silvanshade/cxx-clang" }
+cxx-llvm = { version = "0.0", git = "https://github.com/silvanshade/cxx-llvm" }
+cxx-llvm-abi = { version = "0.0", git = "https://github.com/silvanshade/cxx-llvm" }
+cxx-memory = { version = "0.0", git = "https://github.com/silvanshade/cxx-memory" }
+cxx-memory-abi = { version = "0.0", git = "https://github.com/silvanshade/cxx-memory" }
 cxx-swift-abi = { version = "0.0", path = "../cxx-swift-abi" }
 pin-project-lite = "0.2"
 snafu = "0.7.5"
