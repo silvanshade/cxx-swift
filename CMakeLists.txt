@@ -9,15 +9,16 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # ensure that the C++ compiler is `clang++`
 set(CMAKE_CXX_COMPILER "clang++")
 
-add_library(cxx-swift STATIC
+add_library(cxx-swift-abi STATIC
   crates/cxx-swift/cxx/lib/swift/AST/ASTWalkerBase.cxx
   crates/cxx-swift/cxx/lib/swift/AST/ASTWalkerRust.cxx
+  crates/cxx-swift-abi/cxx/lib/cmake.cxx
 )
-target_compile_definitions(cxx-swift PUBLIC LLVM_DISABLE_ABI_BREAKING_CHECKS_ENFORCING)
-target_include_directories(cxx-swift PUBLIC
-  ../cxx-clang/crates
-  ../cxx-llvm/crates
-  ../cxx-memory-abi/..
+target_include_directories(cxx-swift-abi PUBLIC
+  ../cxx-clang/crates/cxx-clang-abi/..
+  ../cxx-llvm/crates/cxx-llvm-abi/..
+  ../cxx-swift/crates/cxx-swift-abi/..
+  ../cxx-memory/crates/cxx-memory-abi/..
   crates
   target/cxxbridge
   target/cxxbridge/rust
@@ -30,17 +31,23 @@ target_include_directories(cxx-swift PUBLIC
   ../swift-project/swift/include
   ../swift-project/swift/stdlib/public/SwiftShims
 )
-target_compile_options(cxx-swift PUBLIC
-  -std=gnu++2b
+target_compile_definitions(cxx-swift-abi PUBLIC
+  _LIBCPP_ENABLE_THREAD_SAFETY_ANNOTATIONS
+  _LIBCPP_ENABLE_CXX20_REMOVED_TYPE_TRAITS # NOTE: needed for `std::result_of`
+)
+target_compile_options(cxx-swift-abi PUBLIC
+  -std=gnu++20
   # -stdlib=libc++
-  # -lc++abi
   -Werror
   -Wall
   -Wextra
+  -Wthread-safety
+  -Wthread-safety-beta
   -pedantic
   -Wno-ambiguous-reversed-operator
   -Wno-deprecated-anon-enum-enum-conversion
   -Wno-deprecated-builtins
+  -Wno-deprecated-declarations # NOTE: needed for `std::result_of`
   -Wno-dollar-in-identifier-extension
   -Wno-unused-parameter
   -fno-rtti # needed to avoid "undefined reference to `typeinfo for [...]`" errors

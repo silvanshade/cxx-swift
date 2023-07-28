@@ -1,2 +1,8 @@
 [env]
+CXX="clang++"
 RUST_TEST_THREADS = "1"
+
+[build]
+rustflags = [
+  "-C", "linker=clang++",
+]
