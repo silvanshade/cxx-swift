@@ -235,37 +235,42 @@ fn test() -> BoxResult<()> {
                                 println!("kind: {kind:#?}");
                                 match kind {
                                     clang::DeclKind::ObjCInterface => {
-                                        if let Some(_obj_c_interface_decl) = named_decl.cast_as_obj_c_interface_decl() {
+                                        if let Some(_obj_c_interface_decl) =
+                                            named_decl.dyn_cast::<clang::ObjCInterfaceDecl>()
+                                        {
                                             println!("<successfully casted to ObjCInterfaceDecl>");
                                         }
                                     },
                                     clang::DeclKind::ObjCProtocol => {
-                                        if let Some(_obj_c_protocol_decl) = named_decl.cast_as_obj_c_protocol_decl() {
+                                        if let Some(_obj_c_protocol_decl) =
+                                            named_decl.dyn_cast::<clang::ObjCProtocolDecl>()
+                                        {
                                             println!("<successfully casted to ObjCProtocolDecl>");
                                         }
                                     },
                                     clang::DeclKind::ObjCMethod => {
-                                        if let Some(_obj_c_method_decl) = named_decl.cast_as_obj_c_method_decl() {
+                                        if let Some(_obj_c_method_decl) = named_decl.dyn_cast::<clang::ObjCMethodDecl>()
+                                        {
                                             println!("<successfully casted to ObjCMethodDecl>");
                                         }
                                     },
                                     clang::DeclKind::Record => {
-                                        if let Some(_record_decl) = named_decl.cast_as_record_decl() {
+                                        if let Some(_record_decl) = named_decl.dyn_cast::<clang::RecordDecl>() {
                                             println!("<successfully casted to RecordDecl>");
                                         }
                                     },
                                     clang::DeclKind::Typedef => {
-                                        if let Some(_typedef_decl) = named_decl.cast_as_typedef_decl() {
+                                        if let Some(_typedef_decl) = named_decl.dyn_cast::<clang::TypedefDecl>() {
                                             println!("<successfully casted to TypedefDecl>");
                                         }
                                     },
                                     clang::DeclKind::Field => {
-                                        if let Some(_field_decl) = named_decl.cast_as_field_decl() {
+                                        if let Some(_field_decl) = named_decl.dyn_cast::<clang::FieldDecl>() {
                                             println!("<successfully casted to FieldDecl>");
                                         }
                                     },
                                     clang::DeclKind::Function => {
-                                        if let Some(_function_decl) = named_decl.cast_as_function_decl() {
+                                        if let Some(_function_decl) = named_decl.dyn_cast::<clang::FunctionDecl>() {
                                             println!("<successfully casted to FunctionDecl>");
                                         }
                                     },
