@@ -24,8 +24,8 @@ cxx-clang = { version = "0.0", path = "../../../cxx-clang/crates/cxx-clang" }
 cxx-clang-abi = { version = "0.0", path = "../../../cxx-clang/crates/cxx-clang-abi" }
 cxx-llvm = { version = "0.0", path = "../../../cxx-llvm/crates/cxx-llvm" }
 cxx-llvm-abi = { version = "0.0", path = "../../../cxx-llvm/crates/cxx-llvm-abi" }
-cxx-memory = { version = "0.0", path = "../../../cxx-memory" }
-cxx-memory-abi = { version = "0.0", path = "../../../cxx-memory-abi" }
+cxx-memory = { version = "0.0", path = "../../../cxx-memory/crates/cxx-memory" }
+cxx-memory-abi = { version = "0.0", path = "../../../cxx-memory/crates/cxx-memory-abi" }
 cxx-swift-abi = { version = "0.0", path = "../cxx-swift-abi" }
 pin-project-lite = "0.2"
 snafu = "0.7.5"
