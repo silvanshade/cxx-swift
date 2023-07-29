@@ -22,7 +22,7 @@ impl<'ctx> AstWalkerBase<'ctx> {
 impl<'ctx> AstWalkerBase<'ctx> {
     #[inline]
     pub unsafe fn new() -> impl cxx_memory::New<Output = AstWalkerBase<'ctx>> {
-        Self::default()
+        Self::default_new()
     }
 }
 

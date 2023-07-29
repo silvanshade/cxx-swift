@@ -15,13 +15,26 @@ use cxx_llvm::llvm::adt::{
     small_vector_impl::{SmallVectorImpl, SmallVectorImplElement},
     string_ref::StringRef,
 };
+use cxx_memory::cxx;
 
 pub use crate::abi::swift::clang_importer::serialized_swift_name::SerializedSwiftName;
 
 impl<'ctx> SerializedSwiftName<'ctx> {
     #[inline]
+    pub fn new() -> impl cxx_memory::New<Output = SerializedSwiftName<'ctx>> {
+        Self::default_new()
+    }
+
+    #[inline]
     pub fn get_name(&self) -> StringRef<'ctx> {
         serialized_swift_name::get_name(self)
+    }
+}
+
+impl<'ctx> Default for SerializedSwiftName<'ctx> {
+    #[inline]
+    fn default() -> Self {
+        *cxx!(Self::new())
     }
 }
 

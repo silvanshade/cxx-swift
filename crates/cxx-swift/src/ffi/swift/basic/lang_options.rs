@@ -16,6 +16,13 @@ pub enum Error {
 
 impl LangOptions {
     #[inline]
+    pub fn new() -> impl ::cxx_memory::New<Output = LangOptions> {
+        Self::default_new()
+    }
+}
+
+impl LangOptions {
+    #[inline]
     pub fn set_target(self: Pin<&mut Self>, triple: Pin<MoveRef<'_, Triple>>) -> Result<(), Error> {
         let mut inner = unsafe { Pin::into_inner_unchecked(triple) };
         let ptr = unsafe { inner.as_mut_ptr() };

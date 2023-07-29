@@ -10,8 +10,23 @@ use cxx_llvm::llvm::adt::{
     small_vector::{small_vector_element, SmallVector, SmallVectorElement},
     small_vector_impl::{SmallVectorImpl, SmallVectorImplElement},
 };
+use cxx_memory::cxx;
 
 pub use crate::abi::swift::ast::identifier::Identifier;
+
+impl<'ctx> Identifier<'ctx> {
+    #[inline]
+    pub fn new() -> impl cxx_memory::New<Output = Identifier<'ctx>> {
+        Self::default_new()
+    }
+}
+
+impl<'ctx> Default for Identifier<'ctx> {
+    #[inline]
+    fn default() -> Self {
+        *cxx!(Self::new())
+    }
+}
 
 impl<'ctx> SmallVectorElement for Identifier<'ctx> {
     type DefaultType = SmallVector<Self, { <Identifier as SmallVectorElement>::DEFAULT_CAPACITY }>;

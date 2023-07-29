@@ -8,6 +8,11 @@ pub use crate::abi::swift::ast::import_path::module::builder::Builder;
 
 impl<'ctx> Builder<'ctx> {
     #[inline]
+    pub fn new() -> impl cxx_memory::New<Output = Builder<'ctx>> {
+        Self::default_new()
+    }
+
+    #[inline]
     pub fn from<Data>(data: Data) -> impl cxx_memory::New<Output = Builder<'ctx>>
     where
         Data: Into<crate::Initializer<Self, Data>>,

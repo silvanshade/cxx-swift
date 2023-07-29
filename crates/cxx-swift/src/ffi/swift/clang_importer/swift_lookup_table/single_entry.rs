@@ -18,10 +18,16 @@ use cxx_llvm::llvm::adt::{
     small_vector::{small_vector_element, SmallVector, SmallVectorElement},
     small_vector_impl::{SmallVectorImpl, SmallVectorImplElement},
 };
+use cxx_memory::cxx;
 
 pub use crate::abi::swift::clang_importer::swift_lookup_table::single_entry::SwiftLookupTableSingleEntry;
 
 impl<'ctx> SwiftLookupTableSingleEntry<'ctx> {
+    #[inline]
+    pub fn new() -> impl cxx_memory::New<Output = SwiftLookupTableSingleEntry<'ctx>> {
+        Self::default_new()
+    }
+
     #[inline]
     pub fn cast_as_named_decl(&self) -> Option<&ClangNamedDecl<'ctx>> {
         let ptr = single_entry::cast_as_named_decl(self);
@@ -38,6 +44,13 @@ impl<'ctx> SwiftLookupTableSingleEntry<'ctx> {
     pub fn cast_as_module_macro(&self) -> Option<&ClangModuleMacro<'ctx>> {
         let ptr = single_entry::cast_as_module_macro(self);
         if ptr.is_null() { None } else { Some(unsafe { &*ptr }) }
+    }
+}
+
+impl<'ctx> Default for SwiftLookupTableSingleEntry<'ctx> {
+    #[inline]
+    fn default() -> Self {
+        *cxx!(Self::new())
     }
 }
 
