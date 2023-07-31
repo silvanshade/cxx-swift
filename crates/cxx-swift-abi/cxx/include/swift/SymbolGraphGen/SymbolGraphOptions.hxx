@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cxx-memory-abi/cxx/include/cxx-memory-abi.hxx"
+#include "cxx-swift-abi/cxx/include/cxx-swift-abi.hxx"
 #include "swift/SymbolGraphGen/SymbolGraphOptions.h"
 
 namespace cxx_swift::swift::symbol_graph_gen::symbol_graph_options {

@@ -1,17 +1,15 @@
 #pragma once
 
-#include "cxx-memory-abi/cxx/include/cxx-memory-abi.hxx"
+#include "cxx-swift-abi/cxx/include/cxx-swift-abi.hxx"
 #include "swift/AST/Module.h"
 
 #include "clang/Basic/Module.h"
 
 namespace cxx_memory::abi {
-using T = ::swift::ModuleDecl;
-
 template<>
 [[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
 constexpr inline auto
-cxx_is_destructible<T>() noexcept -> bool
+cxx_is_destructible<::swift::ModuleDecl>() noexcept -> bool
 {
   return false;
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cxx-memory-abi/cxx/include/cxx-memory-abi.hxx"
+#include "cxx-swift-abi/cxx/include/cxx-swift-abi.hxx"
 #include "swift/AST/ClangModuleLoader.h"
 #include "swift/AST/Import.h"
 #include "swift/Basic/SourceLoc.h"

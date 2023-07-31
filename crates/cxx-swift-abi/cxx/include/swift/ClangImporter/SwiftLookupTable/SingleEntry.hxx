@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cxx-memory-abi/cxx/include/cxx-memory-abi.hxx"
+#include "cxx-swift-abi/cxx/include/cxx-swift-abi.hxx"
 #include "swift/lib/ClangImporter/SwiftLookupTable.h"
 
 #include "clang/AST/Decl.h"

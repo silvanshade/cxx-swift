@@ -1,16 +1,14 @@
 #pragma once
 
-#include "cxx-memory-abi/cxx/include/cxx-memory-abi.hxx"
+#include "cxx-swift-abi/cxx/include/cxx-swift-abi.hxx"
 #include "swift/AST/ASTWalker.h"
 #include "swift/AST/Expr.h"
 
 namespace cxx_memory::abi {
-using T = ::swift::ASTWalker::PreWalkResult<::swift::Expr*>;
-
 template<>
 [[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
 constexpr inline auto
-rust_should_impl_cxx_memory_copy_new<T>() noexcept -> bool
+rust_should_impl_cxx_memory_copy_new<::swift::ASTWalker::PreWalkResult<::swift::Expr*>>() noexcept -> bool
 {
   return false;
 }
@@ -18,7 +16,7 @@ rust_should_impl_cxx_memory_copy_new<T>() noexcept -> bool
 template<>
 [[nodiscard]] [[gnu::always_inline]] [[gnu::const]]
 constexpr inline auto
-rust_should_impl_cxx_memory_move_new<T>() noexcept -> bool
+rust_should_impl_cxx_memory_move_new<::swift::ASTWalker::PreWalkResult<::swift::Expr*>>() noexcept -> bool
 {
   return false;
 }

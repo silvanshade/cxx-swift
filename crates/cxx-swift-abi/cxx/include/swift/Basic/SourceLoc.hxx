@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cxx-memory-abi/cxx/include/cxx-memory-abi.hxx"
+#include "cxx-swift-abi/cxx/include/cxx-swift-abi.hxx"
 #include "swift/Basic/SourceLoc.h"
 
 namespace cxx_swift::swift::basic::source_loc {

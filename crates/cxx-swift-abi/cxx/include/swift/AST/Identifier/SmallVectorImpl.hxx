@@ -1,7 +1,7 @@
 #pragma once
 
 #include "cxx-llvm-abi/cxx/include/llvm/ADT/SmallVectorImpl.hxx"
-#include "cxx-memory-abi/cxx/include/cxx-memory-abi.hxx"
+#include "cxx-swift-abi/cxx/include/cxx-swift-abi.hxx"
 #include "rust/cxx.h"
 #include "swift/AST/Identifier.h"
 
