@@ -5,13 +5,16 @@ version = "0.0.0"
 authors = ["silvanshade <silvanshade@users.noreply.github.com>"]
 license = "Apache-2.0 WITH LLVM-exception"
 repository = "https://github.com/silvanshade/cxx-swift"
-description = "Auto-generated Rust bindings for Swift's C++ API"
 # NOTE: `links` is needed so that `cxx/include/**/*.hxx` is exported to dependencies
 links = "cxx-swift-abi"
 
 [build-dependencies]
-cxx-llvm-common = { version = "0.0", git = "https://github.com/silvanshade/cxx-llvm-common" }
+cxx-build = { version = "1.0", features = ["parallel"] }
+cxx-clang-build = { version = "0.0", git = "https://github.com/silvanshade/cxx-clang" }
+cxx-llvm-build = { version = "0.0", git = "https://github.com/silvanshade/cxx-llvm" }
+cxx-llvm-build-common = { version = "0.0", git = "https://github.com/silvanshade/cxx-llvm" }
 cxx-memory-abi = { version = "0.0", git = "https://github.com/silvanshade/cxx-memory" }
+cxx-swift-build = { version = "0.0", path = "../cxx-swift-build" }
 
 [dependencies]
 cxx = { version = "1.0", features = ["c++20"] }

@@ -1,8 +1,10 @@
-type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
-type BoxResult<T> = Result<T, BoxError>;
+use cxx_llvm_build_common::prelude::*;
 
 fn process_cxx() -> BoxResult<()> {
-    let dirs = cxx_llvm_common::Dirs::new()?;
+    let cargo_pkg_name = "cxx-clang";
+    let llvm_dirs = cxx_llvm_build::Dirs::new(cargo_pkg_name)?;
+    let clang_dirs = cxx_clang_build::Dirs::new(cargo_pkg_name, &llvm_dirs)?;
+    let swift_dirs = cxx_swift_build::Dirs::new(cargo_pkg_name, &llvm_dirs, &clang_dirs)?;
     let rust_source_files: &[&str] = &[
         "src/abi/swift/ast/ast_context.rs",
         "src/abi/swift/ast/ast_walker_base.rs",
@@ -86,7 +88,7 @@ fn process_cxx() -> BoxResult<()> {
         "cxx/lib/swift/AST/ASTWalkerRust.cxx",
     ];
     let output = "cxx-swift";
-    cxx_llvm_common::cxx_build(&dirs, rust_source_files, files, output)?;
+    cxx_swift_build::cxx_build(&llvm_dirs, &clang_dirs, &swift_dirs, rust_source_files, files, output)?;
     Ok(())
 }
 

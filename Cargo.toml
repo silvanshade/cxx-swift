@@ -2,5 +2,6 @@
 
 members = [
   "crates/cxx-swift",
-  "crates/cxx-swift-abi"
+  "crates/cxx-swift-abi",
+  "crates/cxx-swift-build",
 ]
