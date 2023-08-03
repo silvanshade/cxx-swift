@@ -1,0 +1,171 @@
+# syntax=docker/dockerfile:1
+
+####
+
+FROM base-rust as cxx-swift
+LABEL stage=cxx-swift
+
+ARG DEBIAN_FRONTEND="noninteractive"
+
+COPY --from=base-swift-project --link \
+  /home/swift-project-user/swift-project/llvm-project/llvm/include/ \
+  /workspaces/swift-project/llvm-project/llvm/include/
+COPY --from=base-swift-project --link \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/include/ \
+  /workspaces/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/include/
+
+COPY --from=base-swift-project --link \
+  /home/swift-project-user/swift-project/llvm-project/clang/include/ \
+  /workspaces/swift-project/llvm-project/clang/include/
+COPY --from=base-swift-project --link \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/tools/clang/include/ \
+  /workspaces/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/tools/clang/include/
+
+COPY --from=base-swift-project --link \
+  /home/swift-project-user/swift-project/swift/include/ \
+  /workspaces/swift-project/swift/include/
+COPY --from=base-swift-project --link \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/swift-linux-x86_64/include/ \
+  /workspaces/swift-project/build/Ninja-ReleaseAssert/swift-linux-x86_64/include/
+COPY --from=base-swift-project --link \
+  /home/swift-project-user/swift-project/swift/stdlib/public/SwiftShims/ \
+  /workspaces/swift-project/swift/stdlib/public/SwiftShims/
+COPY --from=base-swift-project --link \
+  /home/swift-project-user/swift-project/swift/lib/ClangImporter/SwiftLookupTable.h \
+  /workspaces/swift-project/swift/lib/ClangImporter/
+
+COPY --from=base-swift-project --link \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/cmark-linux-x86_64/src/libcmark-gfm.a                  \
+  /workspaces/swift-project/build/Ninja-ReleaseAssert/cmark-linux-x86_64/src/
+
+COPY --from=base-swift-project --link \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMX86Disassembler.a         \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMARMDisassembler.a         \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMAArch64Disassembler.a     \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMPowerPCDisassembler.a     \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMSystemZDisassembler.a     \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMMipsDisassembler.a        \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMCoverage.a                \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMX86AsmParser.a            \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMARMAsmParser.a            \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMAArch64AsmParser.a        \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMPowerPCAsmParser.a        \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMSystemZAsmParser.a        \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMMipsAsmParser.a           \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMX86Info.a                 \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMARMInfo.a                 \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMAArch64Info.a             \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMPowerPCInfo.a             \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMSystemZInfo.a             \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMMipsInfo.a                \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMX86CodeGen.a              \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMARMCodeGen.a              \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMAArch64CodeGen.a          \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMPowerPCCodeGen.a          \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMSystemZCodeGen.a          \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMMipsCodeGen.a             \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMX86Desc.a                 \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMARMDesc.a                 \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMAArch64Desc.a             \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMPowerPCDesc.a             \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMSystemZDesc.a             \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMMipsDesc.a                \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMARMUtils.a                \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMAArch64Utils.a            \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMCFGuard.a                 \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMAsmPrinter.a              \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMDebugInfoCodeView.a       \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMGlobalISel.a              \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMSelectionDAG.a            \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMCodeGen.a                 \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMMCDisassembler.a          \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMLTO.a                     \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMTarget.a                  \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMObjCARCOpts.a             \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMScalarOpts.a              \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMInstrumentation.a         \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMipo.a                     \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMLinker.a                  \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMIRReader.a                \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMAsmParser.a               \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMScalarOpts.a              \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMVectorize.a               \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMAggressiveInstCombine.a   \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMInstCombine.a             \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMBitWriter.a               \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMPasses.a                  \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMCoroutines.a              \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMTransformUtils.a          \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMAnalysis.a                \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMProfileData.a             \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMDebugInfoDWARF.a          \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMObject.a                  \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMBitReader.a               \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMMCParser.a                \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMTextAPI.a                 \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMWindowsDriver.a           \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMOption.a                  \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMMC.a                      \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMCore.a                    \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMRemarks.a                 \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMBitstreamReader.a         \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMBinaryFormat.a            \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMFrontendOpenMP.a          \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMCAS.a                     \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMSupport.a                 \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libLLVMDemangle.a                \
+  /workspaces/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/
+
+COPY --from=base-swift-project --link \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libclangIndex.a                  \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libclangDependencyScanning.a     \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libclangCodeGen.a                \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libclangTooling.a                \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libclangFrontend.a               \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libclangCAS.a                    \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libclangParse.a                  \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libclangDriver.a                 \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libclangSerialization.a          \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libclangSema.a                   \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libclangEdit.a                   \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libclangAnalysis.a               \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libclangAPINotes.a               \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libclangAST.a                    \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libclangLex.a                    \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/libclangBasic.a                  \
+  /workspaces/swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/lib/
+
+COPY --from=base-swift-project --link \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/swift-linux-x86_64/lib/libswiftClangImporter.a         \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/swift-linux-x86_64/lib/libswiftParse.a                 \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/swift-linux-x86_64/lib/libswiftAST.a                   \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/swift-linux-x86_64/lib/libswiftDemangling.a            \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/swift-linux-x86_64/lib/libswiftMarkup.a                \
+  /home/swift-project-user/swift-project/build/Ninja-ReleaseAssert/swift-linux-x86_64/lib/libswiftBasic.a                 \
+  /workspaces/swift-project/build/Ninja-ReleaseAssert/swift-linux-x86_64/lib/
+
+ENV SWIFT_PROJECT_PATH="/workspaces/swift-project"
+
+WORKDIR /workspaces/cxx-swift
+
+####
+
+FROM cxx-swift as chef-cxx-swift-prepare
+LABEL stage=chef-cxx-swift-prepare
+
+ARG DEBIAN_FRONTEND="noninteractive"
+
+USER rust-user
+COPY --chown=rust-user:rust-user . .
+RUN cargo chef prepare --recipe-path recipe.json
+
+####
+
+FROM cxx-swift as chef-cxx-swift-cook
+LABEL stage=chef-cxx-swift-cook
+
+ARG DEBIAN_FRONTEND="noninteractive"
+
+USER rust-user
+COPY --from=chef-cxx-swift-prepare --chown=rust-user:rust-user /workspaces/cxx-swift/recipe.json recipe.json
+RUN cargo chef cook --recipe-path recipe.json

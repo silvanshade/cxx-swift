@@ -1,0 +1,13 @@
+# syntax=docker/dockerfile:1
+
+####
+
+FROM cxx-swift
+
+ARG DEBIAN_FRONTEND="noninteractive"
+
+USER root
+RUN apt -y update && apt -y install git
+
+USER rust-user
+COPY --chown=rust-user:rust-user . .

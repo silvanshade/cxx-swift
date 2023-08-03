@@ -1,0 +1,10 @@
+# syntax=docker/dockerfile:1
+
+####
+
+FROM cxx-swift
+
+ARG DEBIAN_FRONTEND="noninteractive"
+
+USER rust-user
+COPY --chown=rust-user:rust-user . .
