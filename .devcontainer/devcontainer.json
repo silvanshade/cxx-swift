@@ -1,5 +1,5 @@
 {
-  "image": "cxx-swift-dev",
+  "image": "silvanshade/cxx-swift-dev",
   "customizations": {
     "vscode": {
       "extensions": [
