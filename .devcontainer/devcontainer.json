@@ -17,5 +17,10 @@
         "vadimcn.vscode-lldb"
       ]
     }
-  }
+  },
+  "runArgs": [
+    "--mount",
+    "type=volume,target=/workspaces/cxx-swift/target"
+  ],
+  "workspaceFolder": "/workspaces/cxx-swift"
 }
