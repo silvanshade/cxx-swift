@@ -208,5 +208,6 @@ pub fn rustc_link_libs() {
     cxx_clang_build::rustc_link_libs();
     cxx_llvm_build::rustc_link_libs();
     println!("cargo:rustc-link-lib=static=cmark-gfm");
+    #[cfg(target_os = "linux")]
     println!("cargo:rustc-link-lib=uuid");
 }
