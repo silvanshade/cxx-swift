@@ -72,4 +72,4 @@ RUN ./utils/update-checkout --clone --skip-history --skip-tags --tag swift-${SWI
 
 USER swift-project-user
 WORKDIR /home/swift-project-user/swift-project/swift
-RUN ./utils/build-script --sccache --release --skip-early-swift-driver --skip-early-swiftsyntax
+RUN ./utils/build-script --sccache --release --skip-early-swift-driver --skip-early-swiftsyntax --host-cc clang --host-cxx clang++ --clean
