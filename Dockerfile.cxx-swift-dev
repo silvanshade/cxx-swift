@@ -10,4 +10,3 @@ USER root
 RUN apt -y update && apt -y install git
 
 USER rust-user
-COPY --chown=rust-user:rust-user . .
