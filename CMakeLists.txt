@@ -22,9 +22,9 @@ target_include_directories(cxx-swift-abi PUBLIC
   crates
   target/cxxbridge
   target/cxxbridge/rust
-  ../swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/include
-  ../swift-project/build/Ninja-ReleaseAssert/llvm-linux-x86_64/tools/clang/include
-  ../swift-project/build/Ninja-ReleaseAssert/swift-linux-x86_64/include
+  ../swift-project/build/Ninja-MinSizeRelAssert/llvm-linux-x86_64/include
+  ../swift-project/build/Ninja-MinSizeRelAssert/llvm-linux-x86_64/tools/clang/include
+  ../swift-project/build/Ninja-MinSizeRelAssert/swift-linux-x86_64/include
   ../swift-project/llvm-project/clang/include
   ../swift-project/llvm-project/llvm/include
   ../swift-project
