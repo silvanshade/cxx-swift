@@ -7,7 +7,11 @@ FROM cxx-swift
 ARG DEBIAN_FRONTEND="noninteractive"
 
 USER root
-RUN apt -y update && apt -y install git
+RUN \
+  apt -y update && \
+  apt -y install git sudo && \
+  echo "rust-user ALL=(root) NOPASSWD:ALL" >> /etc/sudoers.d/rust-user && \
+  chmod 0440 /etc/sudoers.d/rust-user
 
 USER rust-user
 RUN rustup self update

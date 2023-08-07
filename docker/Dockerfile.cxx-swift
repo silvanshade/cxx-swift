@@ -2,7 +2,17 @@
 
 ####
 
-FROM base-swift-project-artifacts:${TARGETARCH} as chef-cxx-swift-prepare
+FROM base-swift-project-artifacts:${TARGETARCH} as base-swift-project-artifacts-prepare
+LABEL stage=base-swift-project-artifacts-prepare
+
+ARG DEBIAN_FRONTEND="noninteractive"
+
+USER root
+RUN chown -R rust-user:rust-user /workspaces/swift-project
+
+####
+
+FROM base-swift-project-artifacts-prepare as chef-cxx-swift-prepare
 LABEL stage=chef-cxx-swift-prepare
 
 ARG DEBIAN_FRONTEND="noninteractive"
@@ -14,7 +24,7 @@ RUN cargo chef prepare --recipe-path recipe.json
 
 ####
 
-FROM base-swift-project-artifacts:${TARGETARCH} as chef-cxx-swift-cook
+FROM base-swift-project-artifacts-prepare as chef-cxx-swift-cook
 LABEL stage=chef-cxx-swift-cook
 
 ARG DEBIAN_FRONTEND="noninteractive"
@@ -23,3 +33,9 @@ USER rust-user
 WORKDIR /workspaces/cxx-swift
 COPY --from=chef-cxx-swift-prepare --chown=rust-user:rust-user /workspaces/cxx-swift/recipe.json recipe.json
 RUN cargo chef cook --recipe-path recipe.json
+
+USER root
+RUN mv /workspaces/cxx-swift/target /workspaces/cxx-swift-target-cooked
+
+USER rust-user
+WORKDIR /workspaces/cxx-swift

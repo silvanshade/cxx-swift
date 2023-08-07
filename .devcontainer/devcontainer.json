@@ -18,9 +18,7 @@
       ]
     }
   },
-  "runArgs": [
-    "--mount",
-    "type=volume,target=/workspaces/cxx-swift/target"
-  ],
-  "workspaceFolder": "/workspaces/cxx-swift"
+  "workspaceFolder": "/workspaces/cxx-swift",
+  "mounts": ["target=${containerWorkspaceFolder}/target,type=volume"],
+  "postCreateCommand": "sudo chown -R rust-user:rust-user ${containerWorkspaceFolder}/target && mv ${containerWorkspaceFolder}/../cxx-swift-target-cooked/* ${containerWorkspaceFolder}/target/ && mv ${containerWorkspaceFolder}/../cxx-swift-target-cooked/.rustc_info.json ${containerWorkspaceFolder}/target/"
 }
