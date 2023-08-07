@@ -29,13 +29,18 @@ LABEL stage=chef-cxx-swift-cook
 
 ARG DEBIAN_FRONTEND="noninteractive"
 
+USER root
+WORKDIR /workspaces/cxx-swift-target-cooked
+RUN apt -y install rsync
+RUN chown -R rust-user:rust-user /workspaces/cxx-swift-target-cooked
+
 USER rust-user
 WORKDIR /workspaces/cxx-swift
 COPY --from=chef-cxx-swift-prepare --chown=rust-user:rust-user /workspaces/cxx-swift/recipe.json recipe.json
-RUN cargo chef cook --recipe-path recipe.json
-
-USER root
-RUN mv /workspaces/cxx-swift/target /workspaces/cxx-swift-target-cooked
+RUN \
+  cargo chef cook --recipe-path recipe.json && \
+  rsync --archive --remove-source-files /workspaces/cxx-swift/target/ /workspaces/cxx-swift-target-cooked && \
+  rm -rf /workspaces/cxx-swift/target
 
 USER rust-user
 WORKDIR /workspaces/cxx-swift

@@ -156,8 +156,9 @@ RUN update-alternatives --verbose \
   --slave     /usr/bin/yaml2obj                       yaml2obj                    "/usr/bin/yaml2obj-${LLVM_VERSION}"                     \
   --slave     /usr/bin/yaml-bench                     yaml-bench                  "/usr/bin/yaml-bench-${LLVM_VERSION}"
 
-RUN groupadd -g 998 rust-user && \
-  useradd -m -r -u 998 -g rust-user rust-user
+RUN \
+  groupadd --gid 1000 rust-user && \
+  useradd --uid 1000 --gid 1000 --system --create-home rust-user
 
 USER rust-user
 

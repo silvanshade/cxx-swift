@@ -1,5 +1,9 @@
 {
-  "image": "silvanshade/cxx-swift-dev",
+  "name": "cxx-swift",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "cxx-swift-dev",
+  "workspaceFolder": "/workspaces/cxx-swift",
+  "postCreateCommand": "sudo chown -R rust-user:rust-user ${containerWorkspaceFolder}/target && rm -rf ${containerWorkspaceFolder}/target/* && rsync --archive ${containerWorkspaceFolder}/../cxx-swift-target-cooked/ ${containerWorkspaceFolder}/target",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -15,10 +19,16 @@
         "stkb.rewrap",
         "tamasfe.even-better-toml",
         "vadimcn.vscode-lldb"
-      ]
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "terminal.integrated.profiles.linux": {
+          "bash": {
+            "path": "/bin/bash",
+            "icon": "terminal-bash"
+          }
+        }
+      }
     }
-  },
-  "workspaceFolder": "/workspaces/cxx-swift",
-  "mounts": ["target=${containerWorkspaceFolder}/target,type=volume"],
-  "postCreateCommand": "sudo chown -R rust-user:rust-user ${containerWorkspaceFolder}/target && mv ${containerWorkspaceFolder}/../cxx-swift-target-cooked/* ${containerWorkspaceFolder}/target/ && mv ${containerWorkspaceFolder}/../cxx-swift-target-cooked/.rustc_info.json ${containerWorkspaceFolder}/target/"
+  }
 }

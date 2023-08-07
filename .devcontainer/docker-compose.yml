@@ -1,0 +1,14 @@
+services:
+  cxx-swift-dev:
+    image: silvanshade/cxx-swift-dev
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    tty: true
+    working_dir: /workspaces/cxx-swift
+    volumes:
+      - ..:/workspaces/cxx-swift:cached
+      - cxx-swift-target:/workspaces/cxx-swift/target
+volumes:
+  cxx-swift-target:

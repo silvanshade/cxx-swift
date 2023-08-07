@@ -18,6 +18,8 @@ In order to use the devcontainer, if you open the repo with [`Visual Studio Code
 
 Alternatively, you should be able to open the devcontainer with other [compatible tools](https://containers.dev/supporting), including the [cli](https://github.com/devcontainers/cli) tool.
 
+*NOTE: The devcontainer uses a docker image that is around 2.5GB compressed, which decompresses locally to around 15GB. You can expect the devcontainer initialization process to take a few minutes the very first time you launch it (in which the editor may look like it has stalled, but will eventually finish). In any case, it should still be significantly faster than having to download and compile the entire LLVM, Clang, and Swift toolchains. After the first initialization, subsequently launching the devcontainer should be almost instantaneous.*
+
 #### Building on macOS
 
 1. Start from a common development directory, e.g., `~/Development`
