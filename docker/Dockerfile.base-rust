@@ -161,15 +161,18 @@ RUN groupadd -g 998 rust-user && \
 
 USER rust-user
 
-RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain nightly -y
+RUN curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable -y
 ENV PATH="/home/rust-user/.cargo/bin:${PATH}"
 RUN echo 'source "/home/rust-user/.cargo/env"' >> "/home/rust-user/.profile"
 
+ARG TARGETARCH
+
 RUN \
-  echo '[registries.crates-io]'                       >> "/home/rust-user/.cargo/config.toml" && \
-  echo 'protocol = "sparse"'                          >> "/home/rust-user/.cargo/config.toml" && \
-  echo ''                                             >> "/home/rust-user/.cargo/config.toml" && \
-  echo '[target.x86_64-unknown-linux-gnu]'            >> "/home/rust-user/.cargo/config.toml" && \
-  echo 'rustflags = ["-C", "link-arg=-fuse-ld=mold"]' >> "/home/rust-user/.cargo/config.toml"
+  CARGO_TARGET_ARCH="$(echo $TARGETARCH | sed s/amd64/x86_64/ | sed s/arm64/aarch64/)"            && \
+  echo '[registries.crates-io]'                           >> "/home/rust-user/.cargo/config.toml" && \
+  echo 'protocol = "sparse"'                              >> "/home/rust-user/.cargo/config.toml" && \
+  echo ''                                                 >> "/home/rust-user/.cargo/config.toml" && \
+  echo "[target.${CARGO_TARGET_ARCH}-unknown-linux-gnu]"  >> "/home/rust-user/.cargo/config.toml" && \
+  echo 'rustflags = ["-C", "link-arg=-fuse-ld=mold"]'     >> "/home/rust-user/.cargo/config.toml"
 
 COPY --from=cargo-chef /usr/local/cargo/bin/cargo-chef "/home/rust-user/.cargo/bin/"

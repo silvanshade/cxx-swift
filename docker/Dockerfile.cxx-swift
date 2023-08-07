@@ -1,0 +1,25 @@
+# syntax=docker/dockerfile:1
+
+####
+
+FROM base-swift-project-artifacts:${TARGETARCH} as chef-cxx-swift-prepare
+LABEL stage=chef-cxx-swift-prepare
+
+ARG DEBIAN_FRONTEND="noninteractive"
+
+USER rust-user
+WORKDIR /workspaces/cxx-swift
+COPY --chown=rust-user:rust-user . .
+RUN cargo chef prepare --recipe-path recipe.json
+
+####
+
+FROM base-swift-project-artifacts:${TARGETARCH} as chef-cxx-swift-cook
+LABEL stage=chef-cxx-swift-cook
+
+ARG DEBIAN_FRONTEND="noninteractive"
+
+USER rust-user
+WORKDIR /workspaces/cxx-swift
+COPY --from=chef-cxx-swift-prepare --chown=rust-user:rust-user /workspaces/cxx-swift/recipe.json recipe.json
+RUN cargo chef cook --recipe-path recipe.json

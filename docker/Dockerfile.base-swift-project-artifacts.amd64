@@ -7,67 +7,43 @@ LABEL stage=cxx-swift
 
 ARG DEBIAN_FRONTEND="noninteractive"
 
-COPY --from=base-swift-project --link \
+COPY --from=base-swift-project-compiled --link \
   /home/swift-project-user/swift-project/llvm-project/llvm/include/ \
   /workspaces/swift-project/llvm-project/llvm/include/
-COPY --from=base-swift-project --link \
+COPY --from=base-swift-project-compiled --link \
   /home/swift-project-user/swift-project/build/Ninja-MinSizeRelAssert/llvm-linux-x86_64/include/ \
   /workspaces/swift-project/build/Ninja-MinSizeRelAssert/llvm-linux-x86_64/include/
 
-COPY --from=base-swift-project --link \
+COPY --from=base-swift-project-compiled --link \
   /home/swift-project-user/swift-project/llvm-project/clang/include/ \
   /workspaces/swift-project/llvm-project/clang/include/
-COPY --from=base-swift-project --link \
+COPY --from=base-swift-project-compiled --link \
   /home/swift-project-user/swift-project/build/Ninja-MinSizeRelAssert/llvm-linux-x86_64/tools/clang/include/ \
   /workspaces/swift-project/build/Ninja-MinSizeRelAssert/llvm-linux-x86_64/tools/clang/include/
 
-COPY --from=base-swift-project --link \
+COPY --from=base-swift-project-compiled --link \
   /home/swift-project-user/swift-project/swift/include/ \
   /workspaces/swift-project/swift/include/
-COPY --from=base-swift-project --link \
+COPY --from=base-swift-project-compiled --link \
   /home/swift-project-user/swift-project/build/Ninja-MinSizeRelAssert/swift-linux-x86_64/include/ \
   /workspaces/swift-project/build/Ninja-MinSizeRelAssert/swift-linux-x86_64/include/
-COPY --from=base-swift-project --link \
+COPY --from=base-swift-project-compiled --link \
   /home/swift-project-user/swift-project/swift/stdlib/public/SwiftShims/ \
   /workspaces/swift-project/swift/stdlib/public/SwiftShims/
-COPY --from=base-swift-project --link \
+COPY --from=base-swift-project-compiled --link \
   /home/swift-project-user/swift-project/swift/lib/ClangImporter/SwiftLookupTable.h \
   /workspaces/swift-project/swift/lib/ClangImporter/
 
-COPY --from=base-swift-project --link \
+COPY --from=base-swift-project-compiled --link \
   /home/swift-project-user/swift-project/build/Ninja-MinSizeRelAssert/cmark-linux-x86_64/src/libcmark-gfm.a \
   /workspaces/swift-project/build/Ninja-MinSizeRelAssert/cmark-linux-x86_64/src/
 
-COPY --from=base-swift-project --link \
+COPY --from=base-swift-project-compiled --link \
   /home/swift-project-user/swift-project/build/Ninja-MinSizeRelAssert/llvm-linux-x86_64/lib/ \
   /workspaces/swift-project/build/Ninja-MinSizeRelAssert/llvm-linux-x86_64/lib/
 
-COPY --from=base-swift-project --link \
+COPY --from=base-swift-project-compiled --link \
   /home/swift-project-user/swift-project/build/Ninja-MinSizeRelAssert/swift-linux-x86_64/lib/ \
   /workspaces/swift-project/build/Ninja-MinSizeRelAssert/swift-linux-x86_64/lib/
 
 ENV SWIFT_PROJECT_PATH="/workspaces/swift-project"
-
-WORKDIR /workspaces/cxx-swift
-
-####
-
-FROM cxx-swift as chef-cxx-swift-prepare
-LABEL stage=chef-cxx-swift-prepare
-
-ARG DEBIAN_FRONTEND="noninteractive"
-
-USER rust-user
-COPY --chown=rust-user:rust-user . .
-RUN cargo chef prepare --recipe-path recipe.json
-
-####
-
-FROM cxx-swift as chef-cxx-swift-cook
-LABEL stage=chef-cxx-swift-cook
-
-ARG DEBIAN_FRONTEND="noninteractive"
-
-USER rust-user
-COPY --from=chef-cxx-swift-prepare --chown=rust-user:rust-user /workspaces/cxx-swift/recipe.json recipe.json
-RUN cargo chef cook --recipe-path recipe.json

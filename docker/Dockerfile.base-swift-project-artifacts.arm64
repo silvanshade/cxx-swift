@@ -1,0 +1,47 @@
+# syntax=docker/dockerfile:1
+
+FROM base-rust as cxx-swift
+LABEL stage=cxx-swift
+
+ARG DEBIAN_FRONTEND="noninteractive"
+
+COPY --from=base-swift-project-compiled --link \
+  /home/swift-project-user/swift-project/llvm-project/llvm/include/ \
+  /workspaces/swift-project/llvm-project/llvm/include/
+COPY --from=base-swift-project-compiled --link \
+  /home/swift-project-user/swift-project/build/Ninja-MinSizeRelAssert/llvm-linux-aarch64/include/ \
+  /workspaces/swift-project/build/Ninja-MinSizeRelAssert/llvm-linux-aarch64/include/
+
+COPY --from=base-swift-project-compiled --link \
+  /home/swift-project-user/swift-project/llvm-project/clang/include/ \
+  /workspaces/swift-project/llvm-project/clang/include/
+COPY --from=base-swift-project-compiled --link \
+  /home/swift-project-user/swift-project/build/Ninja-MinSizeRelAssert/llvm-linux-aarch64/tools/clang/include/ \
+  /workspaces/swift-project/build/Ninja-MinSizeRelAssert/llvm-linux-aarch64/tools/clang/include/
+
+COPY --from=base-swift-project-compiled --link \
+  /home/swift-project-user/swift-project/swift/include/ \
+  /workspaces/swift-project/swift/include/
+COPY --from=base-swift-project-compiled --link \
+  /home/swift-project-user/swift-project/build/Ninja-MinSizeRelAssert/swift-linux-aarch64/include/ \
+  /workspaces/swift-project/build/Ninja-MinSizeRelAssert/swift-linux-aarch64/include/
+COPY --from=base-swift-project-compiled --link \
+  /home/swift-project-user/swift-project/swift/stdlib/public/SwiftShims/ \
+  /workspaces/swift-project/swift/stdlib/public/SwiftShims/
+COPY --from=base-swift-project-compiled --link \
+  /home/swift-project-user/swift-project/swift/lib/ClangImporter/SwiftLookupTable.h \
+  /workspaces/swift-project/swift/lib/ClangImporter/
+
+COPY --from=base-swift-project-compiled --link \
+  /home/swift-project-user/swift-project/build/Ninja-MinSizeRelAssert/cmark-linux-aarch64/src/libcmark-gfm.a \
+  /workspaces/swift-project/build/Ninja-MinSizeRelAssert/cmark-linux-aarch64/src/
+
+COPY --from=base-swift-project-compiled --link \
+  /home/swift-project-user/swift-project/build/Ninja-MinSizeRelAssert/llvm-linux-aarch64/lib/ \
+  /workspaces/swift-project/build/Ninja-MinSizeRelAssert/llvm-linux-aarch64/lib/
+
+COPY --from=base-swift-project-compiled --link \
+  /home/swift-project-user/swift-project/build/Ninja-MinSizeRelAssert/swift-linux-aarch64/lib/ \
+  /workspaces/swift-project/build/Ninja-MinSizeRelAssert/swift-linux-aarch64/lib/
+
+ENV SWIFT_PROJECT_PATH="/workspaces/swift-project"

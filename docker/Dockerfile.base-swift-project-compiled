@@ -1,0 +1,27 @@
+# syntax=docker/dockerfile:1
+
+####
+
+FROM base-swift-project-tools:${TARGETARCH} as base-swift-project-compiled
+LABEL stage=base-swift-project-compiled
+
+USER swift-project-user
+WORKDIR /home/swift-project-user/swift-project/swift
+RUN ./utils/build-script \
+  --host-cc $(which "clang-${LLVM_VERSION}") \
+  --host-cxx $(which "clang++-${LLVM_VERSION}") \
+  --bootstrapping hosttools \
+  --build-toolchain-only true \
+  --build-swift-private-stdlib false \
+  --skip-build-compiler-rt \
+  --skip-build-clang-tools-extra \
+  --skip-early-swift-driver \
+  --skip-early-swiftsyntax \
+  --skip-build-benchmarks \
+  --enable-experimental-differentiable-programming false \
+  --enable-experimental-concurrency false \
+  --enable-experimental-distributed false \
+  --enable-experimental-string-processing false \
+  --sccache \
+  --min-size-release \
+  --clean

@@ -1,0 +1,45 @@
+# syntax=docker/dockerfile:1
+
+####
+
+FROM base-swift-project as base-swift-project-tools
+LABEL stage=base-swift-project-tools
+
+ENV SCCACHE_VERSION="v0.5.4"
+ENV SCCACHE_CACHE_SIZE="100G"
+
+USER swift-project-user
+WORKDIR /home/swift-project-user
+RUN curl -JLO "https://github.com/mozilla/sccache/releases/download/${SCCACHE_VERSION}/sccache-${SCCACHE_VERSION}-$(uname -m)-unknown-linux-musl.tar.gz" && \
+  tar xzpvf sccache-${SCCACHE_VERSION}-$(uname -m)-unknown-linux-musl.tar.gz
+USER root
+RUN mv "sccache-${SCCACHE_VERSION}-$(uname -m)-unknown-linux-musl/sccache" /usr/local/bin && \
+  chmod +x /usr/local/bin/sccache && \
+  rm -rf sccache-${SCCACHE_VERSION}-$(uname -m)-unknown-linux-musl sccache-${SCCACHE_VERSION}-$(uname -m)-unknown-linux-musl.tar.gz
+
+USER swift-project-user
+WORKDIR /home/swift-project-user
+RUN gpg --keyserver hkp://keyserver.ubuntu.com \
+  --recv-keys \
+  '7463 A81A 4B2E EA1B 551F  FBCF D441 C977 412B 37AD' \
+  '1BE1 E29A 084C B305 F397  D62A 9F59 7F4D 21A5 6D5F' \
+  'A3BA FD35 56A5 9079 C068  94BD 63BC 1CFE 91D3 06C6' \
+  '5E4D F843 FB06 5D7F 7E24  FBA2 EF54 30F0 71E1 B235' \
+  '8513 444E 2DA3 6B7C 1659  AF4D 7638 F1FB 2B2B 08C4' \
+  'A62A E125 BBBF BB96 A6E0  42EC 925C C1CC ED3D 1561' \
+  '8A74 9566 2C3C D4AE 18D9  5637 FAF6 989E 1BC1 6FEA' \
+  'E813 C892 820A 6FA1 3755  B268 F167 DF1A CF9C E069' && \
+  gpg --keyserver hkp://keyserver.ubuntu.com --refresh-keys Swift
+
+USER swift-project-user
+WORKDIR /home/swift-project-user
+RUN \
+  curl -JLO "https://download.swift.org/swift-${SWIFT_VERSION}-release/ubuntu2204/swift-${SWIFT_VERSION}-RELEASE/swift-${SWIFT_VERSION}-RELEASE-ubuntu22.04.tar.gz" && \
+  curl -JLO "https://download.swift.org/swift-${SWIFT_VERSION}-release/ubuntu2204/swift-${SWIFT_VERSION}-RELEASE/swift-${SWIFT_VERSION}-RELEASE-ubuntu22.04.tar.gz.sig"
+RUN gpg --verify swift-${SWIFT_VERSION}-RELEASE-ubuntu22.04.tar.gz.sig && \
+  tar xzpvf swift-${SWIFT_VERSION}-RELEASE-ubuntu22.04.tar.gz
+USER root
+RUN mv swift-${SWIFT_VERSION}-RELEASE-ubuntu22.04 /usr/share/swift
+RUN rm -rf swift-${SWIFT_VERSION}-RELEASE-ubuntu22.04.tar.gz swift-${SWIFT_VERSION}-RELEASE-ubuntu22.04.tar.gz.sig
+
+ENV PATH="${PATH}:/usr/share/swift/usr/bin"

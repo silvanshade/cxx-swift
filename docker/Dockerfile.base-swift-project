@@ -1,0 +1,58 @@
+# syntax=docker/dockerfile:1
+
+####
+
+FROM base-clang as base-swift-project
+LABEL stage=base-swift-project
+
+ARG DEBIAN_FRONTEND="noninteractive"
+
+RUN apt-get -y update && apt-get -y install \
+  binutils              \
+  build-essential       \
+  cmake                 \
+  curl                  \
+  git                   \
+  gnupg2                \
+  gpg                   \
+  icu-devtools          \
+  libc6-dev             \
+  libcurl4-openssl-dev  \
+  libedit-dev           \
+  libedit2              \
+  libgcc-9-dev          \
+  libicu-dev            \
+  libncurses5-dev       \
+  libpython3-dev        \
+  libpython3.8          \
+  libsqlite3-0          \
+  libsqlite3-dev        \
+  libstdc++-9-dev       \
+  libxml2-dev           \
+  libz3-dev             \
+  ninja-build           \
+  pkg-config            \
+  python-six            \
+  python2               \
+  python2-dev           \
+  python3-distutils     \
+  python3-six           \
+  rsync                 \
+  swig                  \
+  systemtap-sdt-dev     \
+  tzdata                \
+  unzip                 \
+  uuid-dev              \
+  zip                   \
+  zlib1g-dev
+
+RUN groupadd -g 998 swift-project-user && \
+  useradd -m -r -u 998 -g swift-project-user swift-project-user
+
+ENV SWIFT_VERSION="5.8.1"
+
+USER swift-project-user
+WORKDIR /home/swift-project-user/swift-project
+RUN git clone --depth 1 --single-branch --branch swift-${SWIFT_VERSION}-RELEASE https://github.com/apple/swift.git swift
+WORKDIR /home/swift-project-user/swift-project/swift
+RUN ./utils/update-checkout --clone --skip-history --skip-tags --tag swift-${SWIFT_VERSION}-RELEASE
