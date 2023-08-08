@@ -1,15 +1,15 @@
 #[cxx::bridge]
 mod ffi {
     extern "C++" {
-        include!("cxx-llvm-abi/cxx/include/llvm/ADT/StringRef.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/AST/ASTContext.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/AST/DiagnosticEngine.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/AST/SearchPathOptions.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/AST/SILOptions.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/Basic/ClangImporterOptions.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/Basic/LangOptions.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/Basic/TypeCheckerOptions.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/SymbolGraphGen/SymbolGraphOptions.hxx");
+        include!("cxx-llvm-auto/cxx/include/llvm/ADT/StringRef.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/ASTContext.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/DiagnosticEngine.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/SearchPathOptions.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/SILOptions.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/Basic/ClangImporterOptions.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/Basic/LangOptions.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/Basic/TypeCheckerOptions.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/SymbolGraphGen/SymbolGraphOptions.hxx");
 
         #[namespace = "cxx_swift::swift::ast::ast_context"]
         #[cxx_name = "ASTContext"]

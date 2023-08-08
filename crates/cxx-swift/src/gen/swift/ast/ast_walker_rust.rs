@@ -31,7 +31,7 @@ mod ffi {
     }
 
     extern "C++" {
-        include!("cxx-swift-abi/cxx/include/swift/AST/ASTWalker.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/ASTWalker.hxx");
         include!("cxx-swift/cxx/include/swift/AST/ASTWalkerRust.hxx");
 
         #[namespace = "cxx_swift::swift::ast::ast_walker"]

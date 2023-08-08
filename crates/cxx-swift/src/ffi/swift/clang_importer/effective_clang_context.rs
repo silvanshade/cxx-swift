@@ -1,10 +1,8 @@
-use cxx_memory::cxx;
-
-pub use crate::abi::swift::clang_importer::effective_clang_context::EffectiveClangContext;
+pub use crate::auto::swift::clang_importer::effective_clang_context::EffectiveClangContext;
 
 impl EffectiveClangContext {
     #[inline]
-    pub fn new() -> impl cxx_memory::New<Output = EffectiveClangContext> {
+    pub fn new() -> impl moveref::New<Output = EffectiveClangContext> {
         Self::default_new()
     }
 }
@@ -12,6 +10,6 @@ impl EffectiveClangContext {
 impl Default for EffectiveClangContext {
     #[inline]
     fn default() -> Self {
-        *cxx!(Self::new())
+        *moveref::expr!(Self::new())
     }
 }

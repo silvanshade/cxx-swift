@@ -1,8 +1,8 @@
-pub use crate::abi::swift::basic::type_checker_options::TypeCheckerOptions;
+pub use crate::auto::swift::basic::type_checker_options::TypeCheckerOptions;
 
 impl TypeCheckerOptions {
     #[inline]
-    pub fn new() -> impl cxx_memory::New<Output = TypeCheckerOptions> {
+    pub fn new() -> impl moveref::New<Output = TypeCheckerOptions> {
         Self::default_new()
     }
 }

@@ -10,13 +10,12 @@ use cxx_llvm::llvm::adt::{
     small_vector::{small_vector_element, SmallVector, SmallVectorElement},
     small_vector_impl::{SmallVectorImpl, SmallVectorImplElement},
 };
-use cxx_memory::cxx;
 
-pub use crate::abi::swift::ast::identifier::Identifier;
+pub use crate::auto::swift::ast::identifier::Identifier;
 
 impl<'ctx> Identifier<'ctx> {
     #[inline]
-    pub fn new() -> impl cxx_memory::New<Output = Identifier<'ctx>> {
+    pub fn new() -> impl moveref::New<Output = Identifier<'ctx>> {
         Self::default_new()
     }
 }
@@ -24,7 +23,7 @@ impl<'ctx> Identifier<'ctx> {
 impl<'ctx> Default for Identifier<'ctx> {
     #[inline]
     fn default() -> Self {
-        *cxx!(Self::new())
+        *moveref::expr!(Self::new())
     }
 }
 
@@ -38,13 +37,13 @@ impl<'ctx> SmallVectorElement for Identifier<'ctx> {
     #[inline]
     unsafe fn cxx_default_new(this: *mut Self::DefaultType) {
         let this = <Self as SmallVectorElement>::into_repr_mut_ptr(this);
-        crate::abi::swift::ast::identifier::small_vector::ffi::cxx_default_new(this)
+        crate::auto::swift::ast::identifier::small_vector::ffi::cxx_default_new(this)
     }
 
     #[inline]
     unsafe fn cxx_destruct(this: *mut Self::DefaultType) {
         let this = <Self as SmallVectorElement>::into_repr_mut_ptr(this);
-        crate::abi::swift::ast::identifier::small_vector::ffi::cxx_destruct(this)
+        crate::auto::swift::ast::identifier::small_vector::ffi::cxx_destruct(this)
     }
 
     #[inline]
@@ -68,7 +67,7 @@ impl<'ctx> SmallVectorImplElement for Identifier<'ctx> {
     #[inline]
     unsafe fn cxx_destruct(this: *mut SmallVectorImpl<Self>) {
         let this = <Self as SmallVectorImplElement>::into_repr_mut_ptr(this);
-        crate::abi::swift::ast::identifier::small_vector_impl::ffi::cxx_destruct(this)
+        crate::auto::swift::ast::identifier::small_vector_impl::ffi::cxx_destruct(this)
     }
 
     #[inline]
@@ -87,7 +86,7 @@ impl<'ctx> SmallVectorImplElement for Identifier<'ctx> {
 #[cfg(test)]
 mod test {
     use super::Identifier;
-    use crate::abi::swift::ast::identifier;
+    use crate::auto::swift::ast::identifier;
     use cxx_llvm::llvm::adt::{small_vector::SmallVectorElement, small_vector_impl::SmallVectorImpl};
 
     static_assertions::const_assert_eq!(

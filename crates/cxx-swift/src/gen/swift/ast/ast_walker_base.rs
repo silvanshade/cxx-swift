@@ -1,8 +1,8 @@
 #[cxx::bridge]
 mod ffi {
     extern "C++" {
-        include!("cxx-swift-abi/cxx/include/swift/AST/ASTWalker.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/AST/ASTWalkerBase.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/ASTWalker.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/ASTWalkerBase.hxx");
 
         #[namespace = "cxx_swift::swift::ast::ast_walker"]
         #[cxx_name = "ASTWalker"]

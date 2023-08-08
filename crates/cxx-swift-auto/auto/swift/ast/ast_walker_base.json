@@ -1,0 +1,9 @@
+{
+  "cxx_include": "cxx-swift-auto/cxx/include/swift/AST/ASTWalkerBase.hxx",
+  "cxx_namespace": "cxx_swift::swift::ast::ast_walker_base",
+  "cxx_name": "ASTWalkerBase",
+  "rust_name": "AstWalkerBase",
+  "rust_lifetimes": {
+    "ctx": []
+  }
+}

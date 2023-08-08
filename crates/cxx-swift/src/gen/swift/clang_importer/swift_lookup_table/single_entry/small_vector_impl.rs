@@ -1,8 +1,8 @@
 #[cxx::bridge]
 mod ffi {
     extern "C++" {
-        include!("cxx-swift-abi/cxx/include/swift/ClangImporter/SwiftLookupTable/SingleEntry.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/ClangImporter/SwiftLookupTable/SingleEntry/SmallVectorImpl.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/ClangImporter/SwiftLookupTable/SingleEntry.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/ClangImporter/SwiftLookupTable/SingleEntry/SmallVectorImpl.hxx");
 
         #[namespace = "cxx_swift::swift::clang_importer::swift_lookup_table::single_entry"]
         type SwiftLookupTableSingleEntry<'ctx> =

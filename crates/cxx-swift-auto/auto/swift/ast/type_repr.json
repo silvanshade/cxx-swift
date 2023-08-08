@@ -1,0 +1,8 @@
+{
+  "cxx_include": "cxx-swift-auto/cxx/include/swift/AST/TypeRepr.hxx",
+  "cxx_namespace": "cxx_swift::swift::ast::type_repr",
+  "rust_name": "TypeRepr",
+  "rust_lifetimes": {
+    "ctx": []
+  }
+}

@@ -8,8 +8,8 @@ repository = "https://github.com/silvanshade/cxx-swift"
 
 [dependencies]
 cxx-build = { version = "1.0", features = ["parallel"] }
-cxx-clang-build = { version = "0.0", git = "https://github.com/silvanshade/cxx-clang" }
-cxx-llvm-build = { version = "0.0", git = "https://github.com/silvanshade/cxx-llvm" }
-cxx-llvm-build-common = { version = "0.0", git = "https://github.com/silvanshade/cxx-llvm" }
+cxx-clang-build = "0.0"
+cxx-llvm-build = "0.0"
+cxx-llvm-build-common = "0.0"
 normpath = "1.1"
 snafu = "0.7"

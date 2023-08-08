@@ -1,0 +1,8 @@
+{
+  "cxx_include": "cxx-swift-auto/cxx/include/swift/ClangImporter/SwiftLookupTable/SingleEntry.hxx",
+  "cxx_namespace": "cxx_swift::swift::clang_importer::swift_lookup_table::single_entry",
+  "rust_name": "SwiftLookupTableSingleEntry",
+  "rust_lifetimes": {
+    "ctx": []
+  }
+}

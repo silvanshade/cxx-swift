@@ -13,7 +13,7 @@ use crate::{
 use core::pin::Pin;
 use cxx_llvm::llvm::StringRef;
 
-pub use crate::abi::swift::ast::ast_context::AstContext;
+pub use crate::auto::swift::ast::ast_context::AstContext;
 
 impl<'cfg> AstContext<'cfg> {
     #[inline]

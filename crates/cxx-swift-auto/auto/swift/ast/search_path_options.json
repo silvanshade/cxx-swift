@@ -1,0 +1,5 @@
+{
+  "cxx_include": "cxx-swift-auto/cxx/include/swift/AST/SearchPathOptions.hxx",
+  "cxx_namespace": "cxx_swift::swift::ast::search_path_options",
+  "rust_name": "SearchPathOptions"
+}

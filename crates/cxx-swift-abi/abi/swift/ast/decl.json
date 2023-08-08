@@ -1,8 +1,0 @@
-{
-  "cxx_include": "cxx-swift-abi/cxx/include/swift/AST/Decl.hxx",
-  "cxx_namespace": "cxx_swift::swift::ast::decl",
-  "rust_name": "Decl",
-  "rust_lifetimes": {
-    "ctx": []
-  }
-}

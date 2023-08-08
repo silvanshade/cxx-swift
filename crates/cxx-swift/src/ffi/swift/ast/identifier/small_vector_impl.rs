@@ -1,1 +1,1 @@
-pub use crate::abi::swift::ast::identifier::small_vector_impl::SmallVectorImpl;
+pub use crate::auto::swift::ast::identifier::small_vector_impl::SmallVectorImpl;

@@ -13,7 +13,7 @@ use crate::{
 };
 use core::pin::Pin;
 
-pub use crate::abi::swift::clang_importer::swift_lookup_table::SwiftLookupTable;
+pub use crate::auto::swift::clang_importer::swift_lookup_table::SwiftLookupTable;
 
 impl<'ctx> SwiftLookupTable<'ctx> {
     #[inline]
@@ -21,9 +21,9 @@ impl<'ctx> SwiftLookupTable<'ctx> {
         &self,
         base_name: SerializedSwiftName<'ctx>,
         search_context: EffectiveClangContext,
-    ) -> impl cxx_memory::New<Output = SwiftLookupTableSingleEntrySmallVectorBoxed<'ctx>> + '_ {
+    ) -> impl moveref::New<Output = SwiftLookupTableSingleEntrySmallVectorBoxed<'ctx>> + '_ {
         unsafe {
-            cxx_memory::new::by_raw(move |this| {
+            moveref::new::by_raw(move |this| {
                 let this = this.get_unchecked_mut().as_mut_ptr();
                 swift_lookup_table::lookup(self, base_name, search_context, this)
             })
@@ -31,9 +31,9 @@ impl<'ctx> SwiftLookupTable<'ctx> {
     }
 
     #[inline]
-    pub fn all_base_names(&self) -> impl cxx_memory::New<Output = SerializedSwiftNameSmallVectorBoxed> + '_ {
+    pub fn all_base_names(&self) -> impl moveref::New<Output = SerializedSwiftNameSmallVectorBoxed> + '_ {
         unsafe {
-            cxx_memory::new::by_raw(move |this| {
+            moveref::new::by_raw(move |this| {
                 let this = this.get_unchecked_mut().as_mut_ptr();
                 swift_lookup_table::all_base_names(self, this)
             })

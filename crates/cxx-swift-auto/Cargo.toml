@@ -1,0 +1,22 @@
+[package]
+edition = "2021"
+name = "cxx-swift-auto"
+version = "0.0.0"
+authors = ["silvanshade <silvanshade@users.noreply.github.com>"]
+license = "Apache-2.0 WITH LLVM-exception"
+repository = "https://github.com/silvanshade/cxx-swift"
+# NOTE: `links` is needed so that `cxx/include/**/*.hxx` is exported to dependencies
+links = "cxx-swift-auto"
+
+[build-dependencies]
+cxx-auto = "0.0"
+cxx-build = { version = "1.0", features = ["parallel"] }
+cxx-clang-build = "0.0"
+cxx-llvm-build = "0.0"
+cxx-llvm-build-common = "0.0"
+cxx-swift-build = { version = "0.0", path = "../cxx-swift-build" }
+
+[dependencies]
+cxx = { version = "1.0", features = ["c++20"] }
+cxx-auto = "0.0"
+cxx-llvm-auto = "0.0"

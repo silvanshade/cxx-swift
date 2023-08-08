@@ -1,4 +1,4 @@
-mod abi;
+mod auto;
 mod ffi {
     pub(crate) mod swift {
         pub(crate) mod ast {
@@ -232,7 +232,7 @@ impl<This, Data> Initializer<This, Data> {
     }
 }
 
-unsafe impl<This, Data> cxx_memory::New for Initializer<This, Data> {
+unsafe impl<This, Data> moveref::New for Initializer<This, Data> {
     type Output = This;
 
     #[inline]

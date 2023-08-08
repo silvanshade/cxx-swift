@@ -5,7 +5,7 @@ use crate::{
 use core::pin::Pin;
 use cxx_llvm::llvm::{adt::small_vector_impl::SmallVectorImplElement, SmallVectorImpl};
 
-pub use crate::abi::swift::clang_importer::serialized_swift_name::small_vector_boxed::SmallVectorBoxed;
+pub use crate::auto::swift::clang_importer::serialized_swift_name::small_vector_boxed::SmallVectorBoxed;
 
 impl<'ctx> SmallVectorBoxed<'ctx> {
     #[inline]

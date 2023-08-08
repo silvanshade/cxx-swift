@@ -1,7 +1,7 @@
 use crate::{ffi::swift::ast::ast_walker::AstWalker, gen::swift::ast::ast_walker_base};
 use core::pin::Pin;
 
-pub use crate::abi::swift::ast::ast_walker_base::AstWalkerBase;
+pub use crate::auto::swift::ast::ast_walker_base::AstWalkerBase;
 
 impl<'ctx> core::ops::Deref for AstWalkerBase<'ctx> {
     type Target = AstWalker<'ctx>;
@@ -21,7 +21,7 @@ impl<'ctx> AstWalkerBase<'ctx> {
 
 impl<'ctx> AstWalkerBase<'ctx> {
     #[inline]
-    pub unsafe fn new() -> impl cxx_memory::New<Output = AstWalkerBase<'ctx>> {
+    pub unsafe fn new() -> impl moveref::New<Output = AstWalkerBase<'ctx>> {
         Self::default_new()
     }
 }

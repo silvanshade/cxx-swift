@@ -1,8 +1,8 @@
 #[cxx::bridge]
 mod ffi {
     extern "C++" {
-        include!("cxx-swift-abi/cxx/include/swift/AST/DiagnosticEngine.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/Basic/SourceManager.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/DiagnosticEngine.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/Basic/SourceManager.hxx");
 
         #[namespace = "cxx_swift::swift::ast::diagnostic_engine"]
         type DiagnosticEngine<'source_manager> =

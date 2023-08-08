@@ -1,0 +1,8 @@
+{
+  "cxx_include": "cxx-swift-auto/cxx/include/swift/AST/Pattern.hxx",
+  "cxx_namespace": "cxx_swift::swift::ast::pattern",
+  "rust_name": "Pattern",
+  "rust_lifetimes": {
+    "ctx": []
+  }
+}

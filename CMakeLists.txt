@@ -9,19 +9,17 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 # ensure that the C++ compiler is `clang++`
 set(CMAKE_CXX_COMPILER "clang++")
 
-add_library(cxx-swift-abi STATIC
+add_library(cxx-swift-auto STATIC
   crates/cxx-swift/cxx/lib/swift/AST/ASTWalkerBase.cxx
   crates/cxx-swift/cxx/lib/swift/AST/ASTWalkerRust.cxx
-  crates/cxx-swift-abi/cxx/lib/cmake.cxx
+  crates/cxx-swift-auto/cxx/lib/cmake.cxx
 )
-target_include_directories(cxx-swift-abi PUBLIC
-  ../cxx-clang/crates/cxx-clang-abi/..
-  ../cxx-llvm/crates/cxx-llvm-abi/..
-  ../cxx-swift/crates/cxx-swift-abi/..
-  ../cxx-memory/crates/cxx-memory-abi/..
-  crates
+target_include_directories(cxx-swift-auto PUBLIC
+  ../cxx-clang/crates/cxx-clang-auto/..
+  ../cxx-llvm/crates/cxx-llvm-auto/..
+  ../cxx-swift/crates/cxx-swift-auto/..
+  ../cxx-auto/..
   target/cxxbridge
-  target/cxxbridge/rust
   ../swift-project/build/Ninja-MinSizeRelAssert/llvm-linux-x86_64/include
   ../swift-project/build/Ninja-MinSizeRelAssert/llvm-linux-x86_64/tools/clang/include
   ../swift-project/build/Ninja-MinSizeRelAssert/swift-linux-x86_64/include
@@ -31,11 +29,11 @@ target_include_directories(cxx-swift-abi PUBLIC
   ../swift-project/swift/include
   ../swift-project/swift/stdlib/public/SwiftShims
 )
-target_compile_definitions(cxx-swift-abi PUBLIC
+target_compile_definitions(cxx-swift-auto PUBLIC
   _LIBCPP_ENABLE_THREAD_SAFETY_ANNOTATIONS
   _LIBCPP_ENABLE_CXX20_REMOVED_TYPE_TRAITS # NOTE: needed for `std::result_of`
 )
-target_compile_options(cxx-swift-abi PUBLIC
+target_compile_options(cxx-swift-auto PUBLIC
   -std=gnu++20
   # -stdlib=libc++
   -Werror

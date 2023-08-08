@@ -1,8 +1,8 @@
 #[cxx::bridge]
 mod ffi {
     extern "C++" {
-        include!("cxx-swift-abi/cxx/include/swift/AST/Identifier.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/AST/Identifier/SmallVectorImpl.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/Identifier.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/Identifier/SmallVectorImpl.hxx");
 
         #[namespace = "cxx_swift::swift::ast::identifier"]
         type Identifier<'ctx> = crate::ffi::swift::ast::identifier::Identifier<'ctx>;

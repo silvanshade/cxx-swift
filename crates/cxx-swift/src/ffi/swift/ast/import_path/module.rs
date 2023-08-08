@@ -1,8 +1,8 @@
-use crate::abi::swift::ast::import_path::module;
+use crate::auto::swift::ast::import_path::module;
 
 pub(crate) mod builder;
 
-pub use crate::abi::swift::ast::import_path::module::Module;
+pub use crate::auto::swift::ast::import_path::module::Module;
 
 impl<'ctx> Module<'ctx> {
     #[inline]

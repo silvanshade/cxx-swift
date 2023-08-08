@@ -1,10 +1,10 @@
 use crate::gen::swift::basic::lang_options;
 use core::pin::Pin;
 use cxx_llvm::llvm::adt::triple::Triple;
-use cxx_memory::MoveRef;
+use moveref::MoveRef;
 use snafu::prelude::*;
 
-pub use crate::abi::swift::basic::lang_options::LangOptions;
+pub use crate::auto::swift::basic::lang_options::LangOptions;
 
 #[derive(Debug, Snafu)]
 pub enum Error {
@@ -16,7 +16,7 @@ pub enum Error {
 
 impl LangOptions {
     #[inline]
-    pub fn new() -> impl ::cxx_memory::New<Output = LangOptions> {
+    pub fn new() -> impl moveref::New<Output = LangOptions> {
         Self::default_new()
     }
 }

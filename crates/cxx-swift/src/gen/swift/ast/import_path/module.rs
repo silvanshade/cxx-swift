@@ -3,7 +3,7 @@ pub(crate) mod builder;
 #[cxx::bridge]
 mod ffi {
     extern "C++" {
-        include!("cxx-swift-abi/cxx/include/swift/AST/ImportPath/Module.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/ImportPath/Module.hxx");
 
         // #[namespace = "cxx_swift::swift::ast::import_path::module"]
         // type Module<'ctx> = crate::ffi::swift::ast::import_path::module::Module<'ctx>;

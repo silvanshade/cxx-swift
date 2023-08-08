@@ -1,1 +1,1 @@
-pub use crate::abi::swift::ast::pattern::Pattern;
+pub use crate::auto::swift::ast::pattern::Pattern;

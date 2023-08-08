@@ -1,10 +1,8 @@
-use cxx_memory::cxx;
-
-pub use crate::abi::swift::basic::source_loc::SourceLoc;
+pub use crate::auto::swift::basic::source_loc::SourceLoc;
 
 impl SourceLoc {
     #[inline]
-    pub fn new() -> impl cxx_memory::New<Output = SourceLoc> {
+    pub fn new() -> impl moveref::New<Output = SourceLoc> {
         Self::default_new()
     }
 }
@@ -12,6 +10,6 @@ impl SourceLoc {
 impl Default for SourceLoc {
     #[inline]
     fn default() -> Self {
-        *cxx!(Self::new())
+        *moveref::expr!(Self::new())
     }
 }

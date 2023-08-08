@@ -12,21 +12,21 @@ debug = []
 tracing = ["debug", "dep:tracing", "dep:tracing-forest", "dep:tracing-subscriber"]
 
 [build-dependencies]
-cxx-clang-build = { version = "0.0", git = "https://github.com/silvanshade/cxx-clang" }
-cxx-llvm-build = { version = "0.0", git = "https://github.com/silvanshade/cxx-llvm" }
-cxx-llvm-build-common = { version = "0.0", git = "https://github.com/silvanshade/cxx-llvm" }
-cxx-swift-abi = { version = "0.0", path = "../cxx-swift-abi" }
+cxx-clang-build = "0.0"
+cxx-llvm-build = "0.0"
+cxx-llvm-build-common = "0.0"
+cxx-swift-auto = { version = "0.0", path = "../cxx-swift-auto" }
 cxx-swift-build = { version = "0.0", path = "../cxx-swift-build" }
 
 [dependencies]
 cxx = { version = "1.0", features = ["c++20"] }
-cxx-clang = { version = "0.0", git = "https://github.com/silvanshade/cxx-clang" }
-cxx-clang-abi = { version = "0.0", git = "https://github.com/silvanshade/cxx-clang" }
-cxx-llvm = { version = "0.0", git = "https://github.com/silvanshade/cxx-llvm" }
-cxx-llvm-abi = { version = "0.0", git = "https://github.com/silvanshade/cxx-llvm" }
-cxx-memory = { version = "0.0", git = "https://github.com/silvanshade/cxx-memory" }
-cxx-memory-abi = { version = "0.0", git = "https://github.com/silvanshade/cxx-memory" }
-cxx-swift-abi = { version = "0.0", path = "../cxx-swift-abi" }
+cxx-auto = "0.0"
+cxx-clang = "0.0"
+cxx-clang-auto = "0.0"
+cxx-llvm = "0.0"
+cxx-llvm-auto = "0.0"
+cxx-swift-auto = { version = "0.0", path = "../cxx-swift-auto" }
+moveref = "0.0"
 pin-project-lite = "0.2"
 snafu = "0.7.5"
 tracing = { version = "0.1", optional = true }

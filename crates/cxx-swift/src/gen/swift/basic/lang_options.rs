@@ -1,8 +1,8 @@
 #[cxx::bridge]
 mod ffi {
     extern "C++" {
-        include!("cxx-llvm-abi/cxx/include/llvm/ADT/Triple.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/Basic/LangOptions.hxx");
+        include!("cxx-llvm-auto/cxx/include/llvm/ADT/Triple.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/Basic/LangOptions.hxx");
 
         #[namespace = "cxx_swift::swift::basic::lang_options"]
         type LangOptions = crate::ffi::swift::basic::lang_options::LangOptions;

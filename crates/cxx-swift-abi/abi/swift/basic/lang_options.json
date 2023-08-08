@@ -1,5 +1,0 @@
-{
-  "cxx_include": "cxx-swift-abi/cxx/include/swift/Basic/LangOptions.hxx",
-  "cxx_namespace": "cxx_swift::swift::basic::lang_options",
-  "rust_name": "LangOptions"
-}

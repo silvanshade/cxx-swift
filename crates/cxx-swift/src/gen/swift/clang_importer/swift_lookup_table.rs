@@ -3,11 +3,11 @@ pub(crate) mod single_entry;
 #[cxx::bridge]
 mod ffi {
     extern "C++" {
-        include!("cxx-swift-abi/cxx/include/swift/ClangImporter/EffectiveClangContext.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/ClangImporter/SerializedSwiftName.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/ClangImporter/SerializedSwiftName/SmallVectorBoxed.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/ClangImporter/SwiftLookupTable.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/ClangImporter/SwiftLookupTable/SingleEntry/SmallVectorBoxed.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/ClangImporter/EffectiveClangContext.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/ClangImporter/SerializedSwiftName.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/ClangImporter/SerializedSwiftName/SmallVectorBoxed.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/ClangImporter/SwiftLookupTable.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/ClangImporter/SwiftLookupTable/SingleEntry/SmallVectorBoxed.hxx");
 
         #[namespace = "cxx_swift::swift::clang_importer::effective_clang_context"]
         type EffectiveClangContext = crate::ffi::swift::clang_importer::effective_clang_context::EffectiveClangContext;

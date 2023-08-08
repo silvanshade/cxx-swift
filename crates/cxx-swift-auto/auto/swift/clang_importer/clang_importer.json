@@ -1,0 +1,8 @@
+{
+  "cxx_include": "cxx-swift-auto/cxx/include/swift/ClangImporter/ClangImporter.hxx",
+  "cxx_namespace": "cxx_swift::swift::clang_importer::clang_importer",
+  "rust_name": "ClangImporter",
+  "rust_lifetimes": {
+    "ctx": []
+  }
+}

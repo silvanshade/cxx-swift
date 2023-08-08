@@ -1,11 +1,11 @@
 #[cxx::bridge]
 mod ffi {
     extern "C++" {
-        include!("cxx-memory-abi/cxx/include/cxx-memory-abi.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/Basic/ClangImporterOptions.hxx");
+        include!("cxx-auto/cxx/include/cxx-auto.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/Basic/ClangImporterOptions.hxx");
 
         #[cxx_name = "c_char"]
-        type _c_char = cxx_memory_abi::ctypes::c_char;
+        type _c_char = cxx_auto::ctypes::c_char;
 
         #[namespace = "cxx_swift::swift::basic::clang_importer_options"]
         type ClangImporterOptions = crate::ffi::swift::basic::clang_importer_options::ClangImporterOptions;

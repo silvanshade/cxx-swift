@@ -1,7 +1,7 @@
 #[cxx::bridge]
 mod ffi {
     extern "C++" {
-        include!("cxx-swift-abi/cxx/include/swift/AST/Pattern.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/Pattern.hxx");
 
         // #[namespace = "cxx_swift::swift::ast::pattern"]
         // type Pattern<'ctx> = crate::ffi::swift::ast::pattern::Pattern<'ctx>;

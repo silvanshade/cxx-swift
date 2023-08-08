@@ -1,8 +1,0 @@
-{
-  "cxx_include": "cxx-swift-abi/cxx/include/swift/AST/Identifier.hxx",
-  "cxx_namespace": "cxx_swift::swift::ast::identifier",
-  "rust_name": "Identifier",
-  "rust_lifetimes": {
-    "ctx": []
-  }
-}

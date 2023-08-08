@@ -1,11 +1,11 @@
 use crate::{ffi::swift::basic::source_manager::SourceManager, gen::swift::ast::diagnostic_engine};
 use core::{mem::MaybeUninit, pin::Pin};
 
-pub use crate::abi::swift::ast::diagnostic_engine::DiagnosticEngine;
+pub use crate::auto::swift::ast::diagnostic_engine::DiagnosticEngine;
 
 impl<'source_manager> DiagnosticEngine<'source_manager> {
     #[inline]
-    pub fn from<Data>(data: Data) -> impl cxx_memory::New<Output = DiagnosticEngine<'source_manager>>
+    pub fn from<Data>(data: Data) -> impl moveref::New<Output = DiagnosticEngine<'source_manager>>
     where
         Data: Into<crate::Initializer<Self, Data>>,
     {

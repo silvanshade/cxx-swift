@@ -1,0 +1,9 @@
+{
+  "cxx_include": "cxx-swift-auto/cxx/include/swift/AST/ASTContext.hxx",
+  "cxx_namespace": "cxx_swift::swift::ast::ast_context",
+  "cxx_name": "ASTContext",
+  "rust_name": "AstContext",
+  "rust_lifetimes": {
+    "cfg": []
+  }
+}

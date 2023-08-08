@@ -1,7 +1,7 @@
 #[cxx::bridge]
 mod ffi {
     extern "C++" {
-        include!("cxx-swift-abi/cxx/include/swift/AST/SILOptions.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/SILOptions.hxx");
 
         // #[namespace = "cxx_swift::swift::ast::sil_options"]
         // #[cxx_name = "SILOptions"]

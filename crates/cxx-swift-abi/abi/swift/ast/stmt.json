@@ -1,8 +1,0 @@
-{
-  "cxx_include": "cxx-swift-abi/cxx/include/swift/AST/Stmt.hxx",
-  "cxx_namespace": "cxx_swift::swift::ast::stmt",
-  "rust_name": "Stmt",
-  "rust_lifetimes": {
-    "ctx": []
-  }
-}

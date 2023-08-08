@@ -1,7 +1,7 @@
 #[cxx::bridge]
 mod ffi {
     extern "C++" {
-        include!("cxx-swift-abi/cxx/include/swift/AST/DependencyTracker.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/DependencyTracker.hxx");
 
         // #[namespace = "cxx_swift::swift::ast::dependency_tracker"]
         // type DependencyTracker = crate::ffi::swift::ast::dependency_tracker::DependencyTracker;

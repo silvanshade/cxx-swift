@@ -1,5 +1,0 @@
-{
-  "cxx_include": "cxx-swift-abi/cxx/include/swift/Basic/ClangImporterOptions.hxx",
-  "cxx_namespace": "cxx_swift::swift::basic::clang_importer_options",
-  "rust_name": "ClangImporterOptions"
-}

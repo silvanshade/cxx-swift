@@ -1,8 +1,8 @@
 #[cxx::bridge]
 mod ffi {
     extern "C++" {
-        include!("cxx-clang-abi/cxx/include/clang/Basic/Module.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/AST/ModuleDecl.hxx");
+        include!("cxx-clang-auto/cxx/include/clang/Basic/Module.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/ModuleDecl.hxx");
 
         #[namespace = "cxx_clang::clang::basic::module"]
         #[cxx_name = "Module"]

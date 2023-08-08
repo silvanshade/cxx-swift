@@ -1,8 +1,8 @@
 #[cxx::bridge]
 mod ffi {
     extern "C++" {
-        include!("cxx-swift-abi/cxx/include/swift/ClangImporter/SerializedSwiftName.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/ClangImporter/SerializedSwiftName/SmallVectorImpl.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/ClangImporter/SerializedSwiftName.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/ClangImporter/SerializedSwiftName/SmallVectorImpl.hxx");
 
         #[namespace = "cxx_swift::swift::clang_importer::serialized_swift_name"]
         type SerializedSwiftName<'ctx> =

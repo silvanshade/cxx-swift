@@ -1,1 +1,1 @@
-pub use crate::abi::swift::ast::decl::Decl;
+pub use crate::auto::swift::ast::decl::Decl;

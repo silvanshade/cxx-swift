@@ -35,8 +35,8 @@ impl<'state, 'ctx: 'state> AstWalkerRust<'state, 'ctx> {
     #[inline]
     pub unsafe fn new(
         inner: Pin<&'state mut dyn AstWalkerConcrete<'ctx>>,
-    ) -> impl cxx_memory::New<Output = AstWalkerRust<'state, 'ctx>> {
-        cxx_memory::new::by_raw(move |this| {
+    ) -> impl moveref::New<Output = AstWalkerRust<'state, 'ctx>> {
+        moveref::new::by_raw(move |this| {
             let this = this.get_unchecked_mut().as_mut_ptr();
             let ast_walker_dyn = Box::new(AstWalkerDyn { inner });
             ast_walker_rust::cxx_placement_new(this, ast_walker_dyn)

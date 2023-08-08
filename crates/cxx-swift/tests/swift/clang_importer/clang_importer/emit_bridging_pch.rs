@@ -8,7 +8,7 @@ fn test() -> BoxResult<()> {
     let temp = tempfile::tempdir()?;
 
     // Initialize default clang importer options.
-    let_cxx!(mut clang_importer_options = swift::ClangImporterOptions::new());
+    moveref::bind!(mut clang_importer_options = swift::ClangImporterOptions::new());
 
     // Create a cache subdirectory for the modules and PCH.
     let cache = temp.path().join("cache");
@@ -56,21 +56,21 @@ fn test() -> BoxResult<()> {
     clang_importer_options.as_mut().set_bridging_header(&bridging_dot_h);
 
     // Set up the importer.
-    let_cxx!(mut lang_options = swift::LangOptions::new());
+    moveref::bind!(mut lang_options = swift::LangOptions::new());
     {
-        let_cxx!(target = llvm::Triple::from(("x86_64", "apple", "darwin")));
+        moveref::bind!(target = llvm::Triple::from(("x86_64", "apple", "darwin")));
         lang_options.as_mut().set_target(target)?;
     }
 
-    let_cxx!(mut sil_options = swift::SilOptions::new());
-    let_cxx!(mut type_checker_options = swift::TypeCheckerOptions::new());
+    moveref::bind!(mut sil_options = swift::SilOptions::new());
+    moveref::bind!(mut type_checker_options = swift::TypeCheckerOptions::new());
 
     swift::initialize_llvm();
 
-    let_cxx!(mut search_path_options = swift::SearchPathOptions::new());
-    let_cxx!(mut symbol_graph_options = swift::symbol_graph_gen::SymbolGraphOptions::new());
-    let_cxx!(mut source_manager = swift::SourceManager::new());
-    let_cxx!(mut diagnostic_engine = swift::DiagnosticEngine::from(source_manager.as_mut()));
+    moveref::bind!(mut search_path_options = swift::SearchPathOptions::new());
+    moveref::bind!(mut symbol_graph_options = swift::symbol_graph_gen::SymbolGraphOptions::new());
+    moveref::bind!(mut source_manager = swift::SourceManager::new());
+    moveref::bind!(mut diagnostic_engine = swift::DiagnosticEngine::from(source_manager.as_mut()));
 
     fn pre_module_import_callback(_module_name: cxx_llvm::llvm::StringRef<'_>, _is_overlay: bool) -> bool {
         true

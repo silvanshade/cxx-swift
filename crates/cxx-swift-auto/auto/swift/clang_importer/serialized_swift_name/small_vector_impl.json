@@ -1,0 +1,8 @@
+{
+  "cxx_include": "cxx-swift-auto/cxx/include/swift/ClangImporter/SerializedSwiftName/SmallVectorImpl.hxx",
+  "cxx_namespace": "cxx_swift::swift::clang_importer::serialized_swift_name::small_vector_impl",
+  "rust_name": "SmallVectorImpl",
+  "rust_lifetimes": {
+    "ctx": []
+  }
+}

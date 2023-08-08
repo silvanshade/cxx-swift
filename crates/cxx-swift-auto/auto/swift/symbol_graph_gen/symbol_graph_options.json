@@ -1,0 +1,5 @@
+{
+  "cxx_include": "cxx-swift-auto/cxx/include/swift/SymbolGraphGen/SymbolGraphOptions.hxx",
+  "cxx_namespace": "cxx_swift::swift::symbol_graph_gen::symbol_graph_options",
+  "rust_name": "SymbolGraphOptions"
+}

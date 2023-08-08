@@ -1,8 +1,0 @@
-{
-  "cxx_include": "cxx-swift-abi/cxx/include/swift/AST/ASTWalker/ParentTy.hxx",
-  "cxx_namespace": "cxx_swift::swift::ast::ast_walker::parent_ty",
-  "rust_name": "ParentTy",
-  "rust_lifetimes": {
-    "ctx": []
-  }
-}

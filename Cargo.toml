@@ -3,6 +3,17 @@ resolver = "2"
 
 members = [
   "crates/cxx-swift",
-  "crates/cxx-swift-abi",
+  "crates/cxx-swift-auto",
   "crates/cxx-swift-build",
 ]
+
+# [patch.crates-io]
+# cxx-auto = { path = "../../../cxx-auto" }
+# cxx-clang = { path = "../../../cxx-clang/crates/cxx-clang" }
+# cxx-clang-auto = { path = "../../../cxx-clang/crates/cxx-clang-auto" }
+# cxx-clang-build = { path = "../../../cxx-clang/crates/cxx-clang-build" }
+# cxx-llvm = { path = "../../../cxx-llvm/crates/cxx-llvm" }
+# cxx-llvm-auto = { path = "../../../cxx-llvm/crates/cxx-llvm-auto" }
+# cxx-llvm-build = { path = "../../../cxx-llvm/crates/cxx-llvm-build" }
+# cxx-llvm-build-common = { path = "../../../cxx-llvm/crates/cxx-llvm-build-common" }
+# moveref = { path = "../../../moveref" }

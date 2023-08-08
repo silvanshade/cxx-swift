@@ -5,10 +5,10 @@ pub(crate) mod small_vector_impl;
 #[cxx::bridge]
 mod ffi {
     extern "C++" {
-        include!("cxx-clang-abi/cxx/include/clang/AST/Decl/NamedDecl.hxx");
-        include!("cxx-clang-abi/cxx/include/clang/Lex/MacroInfo.hxx");
-        include!("cxx-clang-abi/cxx/include/clang/Lex/MacroInfo/ModuleMacro.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/ClangImporter/SwiftLookupTable/SingleEntry.hxx");
+        include!("cxx-clang-auto/cxx/include/clang/AST/Decl/NamedDecl.hxx");
+        include!("cxx-clang-auto/cxx/include/clang/Lex/MacroInfo.hxx");
+        include!("cxx-clang-auto/cxx/include/clang/Lex/MacroInfo/ModuleMacro.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/ClangImporter/SwiftLookupTable/SingleEntry.hxx");
 
         #[namespace = "cxx_clang::clang::lex::macro_info"]
         #[cxx_name = "MacroInfo"]

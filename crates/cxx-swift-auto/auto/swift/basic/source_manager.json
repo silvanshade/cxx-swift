@@ -1,0 +1,5 @@
+{
+  "cxx_include": "cxx-swift-auto/cxx/include/swift/Basic/SourceManager.hxx",
+  "cxx_namespace": "cxx_swift::swift::basic::source_manager",
+  "rust_name": "SourceManager"
+}

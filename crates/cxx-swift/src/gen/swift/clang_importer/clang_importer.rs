@@ -1,17 +1,17 @@
 #[cxx::bridge]
 mod ffi {
     extern "C++" {
-        include!("cxx-clang-abi/cxx/include/clang/Basic/Module.hxx");
-        include!("cxx-llvm-abi/cxx/include/llvm/ADT/StringRef.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/AST/ASTContext.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/AST/DependencyTracker.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/AST/Identifier.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/AST/Identifier/SmallVectorImpl.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/AST/ImportPath/Module.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/AST/ModuleDecl.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/Basic/SourceLoc.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/ClangImporter/ClangImporter.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/ClangImporter/SwiftLookupTable.hxx");
+        include!("cxx-clang-auto/cxx/include/clang/Basic/Module.hxx");
+        include!("cxx-llvm-auto/cxx/include/llvm/ADT/StringRef.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/ASTContext.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/DependencyTracker.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/Identifier.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/Identifier/SmallVectorImpl.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/ImportPath/Module.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/ModuleDecl.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/Basic/SourceLoc.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/ClangImporter/ClangImporter.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/ClangImporter/SwiftLookupTable.hxx");
 
         #[namespace = "cxx_swift::swift::ast::ast_context"]
         #[cxx_name = "ASTContext"]

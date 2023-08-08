@@ -18,13 +18,12 @@ use cxx_llvm::llvm::adt::{
     small_vector::{small_vector_element, SmallVector, SmallVectorElement},
     small_vector_impl::{SmallVectorImpl, SmallVectorImplElement},
 };
-use cxx_memory::cxx;
 
-pub use crate::abi::swift::clang_importer::swift_lookup_table::single_entry::SwiftLookupTableSingleEntry;
+pub use crate::auto::swift::clang_importer::swift_lookup_table::single_entry::SwiftLookupTableSingleEntry;
 
 impl<'ctx> SwiftLookupTableSingleEntry<'ctx> {
     #[inline]
-    pub fn new() -> impl cxx_memory::New<Output = SwiftLookupTableSingleEntry<'ctx>> {
+    pub fn new() -> impl moveref::New<Output = SwiftLookupTableSingleEntry<'ctx>> {
         Self::default_new()
     }
 
@@ -50,7 +49,7 @@ impl<'ctx> SwiftLookupTableSingleEntry<'ctx> {
 impl<'ctx> Default for SwiftLookupTableSingleEntry<'ctx> {
     #[inline]
     fn default() -> Self {
-        *cxx!(Self::new())
+        *moveref::expr!(Self::new())
     }
 }
 
@@ -64,13 +63,13 @@ impl<'ctx> SmallVectorElement for SwiftLookupTableSingleEntry<'ctx> {
     #[inline]
     unsafe fn cxx_default_new(this: *mut Self::DefaultType) {
         let this = <Self as SmallVectorElement>::into_repr_mut_ptr(this);
-        crate::abi::swift::clang_importer::swift_lookup_table::single_entry::small_vector::ffi::cxx_default_new(this)
+        crate::auto::swift::clang_importer::swift_lookup_table::single_entry::small_vector::ffi::cxx_default_new(this)
     }
 
     #[inline]
     unsafe fn cxx_destruct(this: *mut Self::DefaultType) {
         let this = <Self as SmallVectorElement>::into_repr_mut_ptr(this);
-        crate::abi::swift::clang_importer::swift_lookup_table::single_entry::small_vector::ffi::cxx_destruct(this)
+        crate::auto::swift::clang_importer::swift_lookup_table::single_entry::small_vector::ffi::cxx_destruct(this)
     }
 
     #[inline]
@@ -100,7 +99,7 @@ impl<'ctx> SmallVectorImplElement for SwiftLookupTableSingleEntry<'ctx> {
     #[inline]
     unsafe fn cxx_destruct(this: *mut SmallVectorImpl<Self>) {
         let this = <Self as SmallVectorImplElement>::into_repr_mut_ptr(this);
-        crate::abi::swift::clang_importer::swift_lookup_table::single_entry::small_vector_impl::ffi::cxx_destruct(this)
+        crate::auto::swift::clang_importer::swift_lookup_table::single_entry::small_vector_impl::ffi::cxx_destruct(this)
     }
 
     #[inline]
@@ -119,7 +118,7 @@ impl<'ctx> SmallVectorImplElement for SwiftLookupTableSingleEntry<'ctx> {
 #[cfg(test)]
 mod test {
     use super::SwiftLookupTableSingleEntry;
-    use crate::abi::swift::clang_importer::swift_lookup_table::single_entry;
+    use crate::auto::swift::clang_importer::swift_lookup_table::single_entry;
     use cxx_llvm::llvm::adt::{small_vector::SmallVectorElement, small_vector_impl::SmallVectorImpl};
 
     static_assertions::const_assert_eq!(

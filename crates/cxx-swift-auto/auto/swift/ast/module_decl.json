@@ -1,0 +1,8 @@
+{
+  "cxx_include": "cxx-swift-auto/cxx/include/swift/AST/ModuleDecl.hxx",
+  "cxx_namespace": "cxx_swift::swift::ast::module_decl",
+  "rust_name": "ModuleDecl",
+  "rust_lifetimes": {
+    "ctx": []
+  }
+}

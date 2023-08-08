@@ -6,10 +6,10 @@ mod pre_walk_result_expr;
 #[cxx::bridge]
 mod ffi {
     extern "C++" {
-        include!("cxx-swift-abi/cxx/include/swift/AST/ASTWalker.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/AST/ASTWalker/ParentTy.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/AST/ASTWalker/PreWalkResultExpr.hxx");
-        include!("cxx-swift-abi/cxx/include/swift/AST/Expr.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/ASTWalker.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/ASTWalker/ParentTy.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/ASTWalker/PreWalkResultExpr.hxx");
+        include!("cxx-swift-auto/cxx/include/swift/AST/Expr.hxx");
 
         #[namespace = "cxx_swift::swift::ast::ast_walker"]
         #[cxx_name = "ASTWalker"]

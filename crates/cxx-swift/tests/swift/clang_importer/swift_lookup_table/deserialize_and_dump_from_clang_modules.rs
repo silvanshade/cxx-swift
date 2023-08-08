@@ -143,7 +143,7 @@ fn test() -> BoxResult<()> {
 
     swift::initialize_llvm();
 
-    let_cxx!(mut clang_importer_options = swift::ClangImporterOptions::new());
+    moveref::bind!(mut clang_importer_options = swift::ClangImporterOptions::new());
     clang_importer_options.as_mut().set_bridging_header(&bridging_dot_h);
     clang_importer_options
         .as_mut()
@@ -160,17 +160,17 @@ fn test() -> BoxResult<()> {
         .as_mut()
         .set_precompiled_header_output_dir(&cache);
 
-    let_cxx!(mut lang_options = swift::LangOptions::new());
+    moveref::bind!(mut lang_options = swift::LangOptions::new());
     {
-        let_cxx!(target = llvm::Triple::from(("x86_64", "apple", "darwin")));
+        moveref::bind!(target = llvm::Triple::from(("x86_64", "apple", "darwin")));
         lang_options.as_mut().set_target(target)?;
     }
-    let_cxx!(mut sil_options = swift::SilOptions::new());
-    let_cxx!(mut type_checker_options = swift::TypeCheckerOptions::new());
-    let_cxx!(mut search_path_options = swift::SearchPathOptions::new());
-    let_cxx!(mut symbol_graph_options = swift::symbol_graph_gen::SymbolGraphOptions::new());
-    let_cxx!(mut source_manager = swift::SourceManager::new());
-    let_cxx!(mut diagnostic_engine = swift::DiagnosticEngine::from(source_manager.as_mut()));
+    moveref::bind!(mut sil_options = swift::SilOptions::new());
+    moveref::bind!(mut type_checker_options = swift::TypeCheckerOptions::new());
+    moveref::bind!(mut search_path_options = swift::SearchPathOptions::new());
+    moveref::bind!(mut symbol_graph_options = swift::symbol_graph_gen::SymbolGraphOptions::new());
+    moveref::bind!(mut source_manager = swift::SourceManager::new());
+    moveref::bind!(mut diagnostic_engine = swift::DiagnosticEngine::from(source_manager.as_mut()));
     let mut ast_context = {
         fn pre_module_import_callback(_module_name: llvm::StringRef, _is_overlay: bool) -> bool {
             true
@@ -193,7 +193,7 @@ fn test() -> BoxResult<()> {
         swift::ClangImporter::create(ast_context.pin_mut(), swift_pch_hash, dependency_tracker)
     };
 
-    let_cxx!(mut module_names = llvm::SmallVectorImpl::<swift::Identifier>::new());
+    moveref::bind!(mut module_names = llvm::SmallVectorImpl::<swift::Identifier>::new());
     let mut module_names = module_names.as_mut().as_pin();
     clang_importer
         .pin_mut()
@@ -207,7 +207,7 @@ fn test() -> BoxResult<()> {
         if let Some(module_decl) = {
             let source_loc = swift::SourceLoc::default();
             let module_path = {
-                let_cxx!(module_path_builder = swift::ast::import_path::module::Builder::from(module_name));
+                moveref::bind!(module_path_builder = swift::ast::import_path::module::Builder::from(module_name));
                 module_path_builder.get()
             };
             let allow_memory_cache = None;
@@ -223,11 +223,11 @@ fn test() -> BoxResult<()> {
                     table.as_mut().deserialize_all();
                     table.as_mut().dump();
                     let search_context = swift::EffectiveClangContext::default();
-                    let_cxx!(base_names = table.all_base_names());
+                    moveref::bind!(base_names = table.all_base_names());
                     println!("swift module: processing base names from lookup table\n");
                     for base_name in base_names.iter().copied() {
                         println!("name: {}", base_name.get_name().as_str()?);
-                        let_cxx!(entries = table.lookup(base_name, search_context));
+                        moveref::bind!(entries = table.lookup(base_name, search_context));
                         for entry in &*entries {
                             if let Some(named_decl) = entry.cast_as_named_decl() {
                                 println!("entry: <NamedDecl>");

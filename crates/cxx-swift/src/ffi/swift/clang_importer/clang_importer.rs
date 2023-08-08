@@ -16,7 +16,7 @@ use core::pin::Pin;
 use cxx_clang::clang::basic::module::Module as ClangModule;
 use cxx_llvm::llvm;
 
-pub use crate::abi::swift::clang_importer::clang_importer::ClangImporter;
+pub use crate::auto::swift::clang_importer::clang_importer::ClangImporter;
 
 impl<'ctx> ClangImporter<'ctx> {
     #[inline]

@@ -1,8 +1,0 @@
-{
-  "cxx_include": "cxx-swift-abi/cxx/include/swift/AST/ASTWalker/PreWalkResultExpr.hxx",
-  "cxx_namespace": "cxx_swift::swift::ast::ast_walker::pre_walk_result_expr",
-  "rust_name": "PreWalkResultExpr",
-  "rust_lifetimes": {
-    "ctx": []
-  }
-}

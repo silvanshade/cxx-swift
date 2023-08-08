@@ -5,7 +5,7 @@ pub(crate) mod vtable;
 use crate::{ffi::swift::ast::ast_walker::parent_ty::ParentTy, gen::swift::ast::ast_walker};
 use core::pin::Pin;
 
-pub use crate::abi::swift::ast::ast_walker::AstWalker;
+pub use crate::auto::swift::ast::ast_walker::AstWalker;
 
 impl<'ctx> AstWalker<'ctx> {
     #[inline]
