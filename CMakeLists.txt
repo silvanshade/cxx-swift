@@ -49,6 +49,7 @@ target_compile_options(cxx-swift-abi PUBLIC
   -Wno-deprecated-builtins
   -Wno-deprecated-declarations # NOTE: needed for `std::result_of`
   -Wno-dollar-in-identifier-extension
+  -Wno-nested-anon-types
   -Wno-unused-parameter
   -fno-rtti # needed to avoid "undefined reference to `typeinfo for [...]`" errors
 )
