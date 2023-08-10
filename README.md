@@ -12,13 +12,13 @@ The quickest and easiest way to be able to develop and build the `cxx-swift` cra
 
 The devcontainer provides a self-contained development environment with the necessary libraries for building the FFI bindings for the Swift toolchain already compiled, along with LLVM, Clang, and the Rust toolchain.
 
-The devcontainer uses a multi-platform image with variants available for both arm64 and amd64, which will be chosen automatically for your platform; the arm64 variant will be chosen for Apple Silicon Macs, so there is no need to run the amd64 variant under Docker with Rosetta.
+The devcontainer uses a multi-platform image with variants available for both `arm64` and `amd64`, which will be chosen automatically for your platform; the `arm64` variant will be chosen for Apple Silicon Macs, so there is no need to run the `amd64` variant under Docker with Rosetta.
 
-In order to use the devcontainer, if you open the repo with [`Visual Studio Code`](https://code.visualstudio.com/) and have the [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension installed (you will also need [Docker](https://www.docker.com/) installed), the editor should prompt you to open the workspace in the devcontainer (if not, manually open the command palette and select "Dev Containers: Rebuild and Reopen in Container").
+In order to use the devcontainer, if you open the repo with [Visual Studio Code](https://code.visualstudio.com/) and have the [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension installed (you will also need [Docker](https://www.docker.com/) installed), the editor should prompt you to open the workspace in the devcontainer. If you do not see the prompt for this, you can instead manually open the [command palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette) and input and select the command `Dev Containers: Rebuild and Reopen in Container`.
 
 Alternatively, you should be able to open the devcontainer with other [compatible tools](https://containers.dev/supporting), including the [cli](https://github.com/devcontainers/cli) tool.
 
-*NOTE: The devcontainer uses a docker image that is around 2.5GB compressed, which decompresses locally to around 15GB. You can expect the devcontainer initialization process to take a few minutes the very first time you launch it (in which the editor may look like it has stalled, but will eventually finish). In any case, it should still be significantly faster than having to download and compile the entire LLVM, Clang, and Swift toolchains. After the first initialization, subsequently launching the devcontainer should be almost instantaneous.*
+*NOTE: The devcontainer uses a docker image that is around 2.5GB compressed, which decompresses locally to around 15GB. You can expect the devcontainer initialization process to take a few minutes the very first time you launch it (during which the editor may look like it has stalled, but will eventually finish). In any case, it should still be significantly faster than having to download and compile the entire LLVM, Clang, and Swift toolchains. After the first initialization, subsequent launches of the devcontainer should be almost instantaneous.*
 
 #### Building on macOS
 
