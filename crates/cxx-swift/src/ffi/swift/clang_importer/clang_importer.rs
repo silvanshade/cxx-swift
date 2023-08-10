@@ -27,10 +27,10 @@ impl<'ctx> ClangImporter<'ctx> {
     ) -> cxx::UniquePtr<Self> {
         let swift_pch_hash = swift_pch_hash
             .map(|ptr| unsafe { Pin::into_inner_unchecked(ptr) } as *mut cxx::String)
-            .unwrap_or_else(|| core::ptr::null_mut());
+            .unwrap_or_else(core::ptr::null_mut);
         let dependency_tracker = dependency_tracker
             .map(|ptr| unsafe { Pin::into_inner_unchecked(ptr) } as *mut DependencyTracker)
-            .unwrap_or_else(|| core::ptr::null_mut());
+            .unwrap_or_else(core::ptr::null_mut);
         unsafe { clang_importer::create(ast_context, swift_pch_hash, dependency_tracker) }
     }
 

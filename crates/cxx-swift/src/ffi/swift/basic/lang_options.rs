@@ -25,7 +25,7 @@ impl LangOptions {
     #[inline]
     pub fn set_target(self: Pin<&mut Self>, triple: Pin<MoveRef<'_, Triple>>) -> Result<(), Error> {
         let mut inner = unsafe { Pin::into_inner_unchecked(triple) };
-        let ptr = unsafe { inner.as_mut_ptr() };
+        let ptr = inner.as_mut_ptr();
         let mut os_was_invalid = false;
         let mut arch_was_invalid = false;
         unsafe { lang_options::set_target(self, ptr, &mut os_was_invalid, &mut arch_was_invalid) };

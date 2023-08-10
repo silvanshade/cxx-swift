@@ -47,7 +47,8 @@ mod ffi {
 
     #[namespace = "cxx_swift::swift::ast::ast_context"]
     unsafe extern "C++" {
-        fn get<'cfg, 'source_manager, 's>(
+        #[allow(clippy::extra_unused_lifetimes, clippy::too_many_arguments)]
+        fn get<'cfg, 'source_manager>(
             lang_options: Pin<&'cfg mut LangOptions>,
             type_checker_options: Pin<&'cfg mut TypeCheckerOptions>,
             sil_options: Pin<&'cfg mut SilOptions>,
@@ -55,7 +56,7 @@ mod ffi {
             clang_importer_options: Pin<&'cfg mut ClangImporterOptions>,
             symbol_graph_options: Pin<&'cfg mut SymbolGraphOptions>,
             diagnostic_engine: Pin<&'cfg mut DiagnosticEngine<'source_manager>>,
-            pre_module_import_callback: fn(StringRef<'s>, bool) -> bool,
+            pre_module_import_callback: fn(StringRef, bool) -> bool,
         ) -> UniquePtr<AstContext<'cfg>>;
     }
 }

@@ -15,6 +15,7 @@ mod ffi {
     unsafe extern "C++" {
         fn as_slice<'this, 'ctx>(This: &'this SmallVectorImpl<'ctx>) -> &'this [Identifier<'ctx>];
 
+        // NOTE: returning `Pin<&mut [Identifier<'ctx>]>` is currently unsupported (hence the `unsafe`).
         unsafe fn as_mut_slice<'this, 'ctx>(
             This: Pin<&'this mut SmallVectorImpl<'ctx>>,
         ) -> &'this mut [Identifier<'ctx>];

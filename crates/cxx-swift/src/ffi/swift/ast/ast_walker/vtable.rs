@@ -70,37 +70,37 @@ impl<'ctx> AstWalkerConcrete<'ctx> for AstWalkerBase<'ctx> {
     #[cfg_attr(feature = "tracing", tracing::instrument)]
     #[inline]
     fn should_walk_into_generic_params(self: Pin<&mut Self>) -> bool {
-        unsafe { AstWalkerBase::should_walk_into_generic_params(self) }
+        AstWalkerBase::should_walk_into_generic_params(self)
     }
 
     #[cfg_attr(feature = "tracing", tracing::instrument)]
     #[inline]
     fn should_walk_into_tap_expression(self: Pin<&mut Self>) -> bool {
-        unsafe { AstWalkerBase::should_walk_into_tap_expression(self) }
+        AstWalkerBase::should_walk_into_tap_expression(self)
     }
 
     #[cfg_attr(feature = "tracing", tracing::instrument)]
     #[inline]
     fn should_walk_into_property_wrapper_placeholder_value(self: Pin<&mut Self>) -> bool {
-        unsafe { AstWalkerBase::should_walk_into_property_wrapper_placeholder_value(self) }
+        AstWalkerBase::should_walk_into_property_wrapper_placeholder_value(self)
     }
 
     #[cfg_attr(feature = "tracing", tracing::instrument)]
     #[inline]
     fn should_walk_capture_initializer_expressions(self: Pin<&mut Self>) -> bool {
-        unsafe { AstWalkerBase::should_walk_capture_initializer_expressions(self) }
+        AstWalkerBase::should_walk_capture_initializer_expressions(self)
     }
 
     #[cfg_attr(feature = "tracing", tracing::instrument)]
     #[inline]
     fn should_walk_accessors_the_old_way(self: Pin<&mut Self>) -> bool {
-        unsafe { AstWalkerBase::should_walk_accessors_the_old_way(self) }
+        AstWalkerBase::should_walk_accessors_the_old_way(self)
     }
 
     #[cfg_attr(feature = "tracing", tracing::instrument)]
     #[inline]
     fn should_walk_serialized_top_level_internal_decls(self: Pin<&mut Self>) -> bool {
-        unsafe { AstWalkerBase::should_walk_serialized_top_level_internal_decls(self) }
+        AstWalkerBase::should_walk_serialized_top_level_internal_decls(self)
     }
 }
 
@@ -351,11 +351,11 @@ mod private {
     {
     }
 
-    impl<'ctx, P: DerefMut + Unpin> Sealed for Pin<P> where P::Target: Sealed
+    impl<P: DerefMut + Unpin> Sealed for Pin<P> where P::Target: Sealed
     {
     }
 
-    impl<'ctx, T> Sealed for Box<T> where T: Sealed
+    impl<T> Sealed for Box<T> where T: Sealed
     {
     }
 }

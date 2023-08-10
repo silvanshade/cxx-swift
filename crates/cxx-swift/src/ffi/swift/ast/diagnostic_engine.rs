@@ -19,7 +19,7 @@ impl<'a, 'source_manager> From<Pin<&'a mut SourceManager>>
     #[inline]
     fn from(data: Pin<&'a mut SourceManager>) -> Self {
         #[inline]
-        unsafe fn closure<'a>(this: Pin<&mut MaybeUninit<DiagnosticEngine>>, data: Pin<&'a mut SourceManager>) {
+        unsafe fn closure(this: Pin<&mut MaybeUninit<DiagnosticEngine>>, data: Pin<&mut SourceManager>) {
             let this = this.get_unchecked_mut().as_mut_ptr();
             unsafe { diagnostic_engine::cxx_placement_new_from_source_manager(this, data) }
         }

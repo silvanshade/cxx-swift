@@ -16,6 +16,7 @@ use cxx_llvm::llvm::StringRef;
 pub use crate::auto::swift::ast::ast_context::AstContext;
 
 impl<'cfg> AstContext<'cfg> {
+    #[allow(clippy::too_many_arguments)]
     #[inline]
     pub fn get<'source_manager: 'cfg>(
         lang_options: Pin<&'cfg mut LangOptions>,

@@ -31,7 +31,7 @@ mod ffi {
 
     #[namespace = "cxx_swift::swift::ast::ast_walker"]
     unsafe extern "C++" {
-        unsafe fn get_parent<'ctx>(This: &AstWalker<'ctx>) -> ParentTy<'ctx>;
+        fn get_parent<'ctx>(This: &AstWalker<'ctx>) -> ParentTy<'ctx>;
 
         unsafe fn walk_to_expr_pre<'ctx>(
             This: Pin<&mut AstWalker<'ctx>>,
@@ -39,17 +39,17 @@ mod ffi {
             out: *mut PreWalkResultExpr,
         );
 
-        unsafe fn should_walk_into_generic_params<'ctx>(This: Pin<&mut AstWalker<'ctx>>) -> bool;
+        fn should_walk_into_generic_params<'ctx>(This: Pin<&mut AstWalker<'ctx>>) -> bool;
 
-        unsafe fn should_walk_into_tap_expression<'ctx>(This: Pin<&mut AstWalker<'ctx>>) -> bool;
+        fn should_walk_into_tap_expression<'ctx>(This: Pin<&mut AstWalker<'ctx>>) -> bool;
 
-        unsafe fn should_walk_into_property_wrapper_placeholder_value<'ctx>(This: Pin<&mut AstWalker<'ctx>>) -> bool;
+        fn should_walk_into_property_wrapper_placeholder_value<'ctx>(This: Pin<&mut AstWalker<'ctx>>) -> bool;
 
-        unsafe fn should_walk_capture_initializer_expressions<'ctx>(This: Pin<&mut AstWalker<'ctx>>) -> bool;
+        fn should_walk_capture_initializer_expressions<'ctx>(This: Pin<&mut AstWalker<'ctx>>) -> bool;
 
-        unsafe fn should_walk_accessors_the_old_way<'ctx>(This: Pin<&mut AstWalker<'ctx>>) -> bool;
+        fn should_walk_accessors_the_old_way<'ctx>(This: Pin<&mut AstWalker<'ctx>>) -> bool;
 
-        unsafe fn should_walk_serialized_top_level_internal_decls<'ctx>(This: Pin<&mut AstWalker<'ctx>>) -> bool;
+        fn should_walk_serialized_top_level_internal_decls<'ctx>(This: Pin<&mut AstWalker<'ctx>>) -> bool;
     }
 }
 pub(crate) use self::ffi::*;

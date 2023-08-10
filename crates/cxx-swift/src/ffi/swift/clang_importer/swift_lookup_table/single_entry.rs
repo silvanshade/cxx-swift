@@ -109,9 +109,12 @@ impl<'ctx> SmallVectorImplElement for SwiftLookupTableSingleEntry<'ctx> {
     }
 
     #[inline]
-    unsafe fn as_mut_slice(this: Pin<&mut SmallVectorImpl<Self>>) -> &mut [Self] {
+    fn as_pin_slice(this: Pin<&mut SmallVectorImpl<Self>>) -> Pin<&mut [Self]> {
         let this = <Self as SmallVectorImplElement>::into_repr_pin(this);
-        crate::gen::swift::clang_importer::swift_lookup_table::single_entry::small_vector_impl::as_mut_slice(this)
+        let slice = unsafe {
+            crate::gen::swift::clang_importer::swift_lookup_table::single_entry::small_vector_impl::as_mut_slice(this)
+        };
+        unsafe { Pin::new_unchecked(slice) }
     }
 }
 

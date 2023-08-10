@@ -7,6 +7,8 @@ unsafe impl<'state, 'ctx> cxx::ExternType for AstWalkerRust<'state, 'ctx> {
 
 #[cxx::bridge]
 mod ffi {
+    #![allow(clippy::needless_lifetimes)]
+
     extern "Rust" {
         #[cxx_name = "ASTWalkerDyn"]
         type AstWalkerDyn<'state, 'ctx>;

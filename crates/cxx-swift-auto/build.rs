@@ -1,5 +1,5 @@
 use cxx_llvm_build_common::prelude::*;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 pub fn project_dir() -> BoxResult<std::path::PathBuf> {
     let cargo_manifest_dir = std::env::var("CARGO_MANIFEST_DIR")?;
@@ -7,7 +7,7 @@ pub fn project_dir() -> BoxResult<std::path::PathBuf> {
     Ok(project_dir)
 }
 
-fn process_cxx() -> BoxResult<()> {
+fn process_cxx(out_dir: &Path) -> BoxResult<()> {
     let cargo_pkg_name = "cxx-swift-auto";
     let llvm_dirs = cxx_llvm_build::Dirs::new(cargo_pkg_name)?;
     let clang_dirs = cxx_clang_build::Dirs::new(cargo_pkg_name, &llvm_dirs)?;
@@ -26,45 +26,45 @@ fn process_cxx() -> BoxResult<()> {
         .exported_header_dirs
         .extend(includes.iter().map(PathBuf::as_path));
     let rust_source_files = &[
-        "src/auto/swift/ast/ast_context.rs",
-        "src/auto/swift/ast/ast_walker_base.rs",
-        "src/auto/swift/ast/ast_walker_rust.rs",
-        "src/auto/swift/ast/ast_walker.rs",
-        "src/auto/swift/ast/ast_walker/parent_ty.rs",
-        "src/auto/swift/ast/ast_walker/pre_walk_result_expr.rs",
-        "src/auto/swift/ast/decl.rs",
-        "src/auto/swift/ast/dependency_tracker.rs",
-        "src/auto/swift/ast/diagnostic_engine.rs",
-        "src/auto/swift/ast/expr.rs",
-        "src/auto/swift/ast/identifier.rs",
-        "src/auto/swift/ast/identifier/small_vector.rs",
-        "src/auto/swift/ast/identifier/small_vector_impl.rs",
-        "src/auto/swift/ast/import_path/module.rs",
-        "src/auto/swift/ast/import_path/module/builder.rs",
-        "src/auto/swift/ast/module_decl.rs",
-        "src/auto/swift/ast/pattern.rs",
-        "src/auto/swift/ast/search_path_options.rs",
-        "src/auto/swift/ast/sil_options.rs",
-        "src/auto/swift/ast/stmt.rs",
-        "src/auto/swift/ast/type_repr.rs",
-        "src/auto/swift/basic/clang_importer_options.rs",
-        "src/auto/swift/basic/lang_options.rs",
-        "src/auto/swift/basic/source_loc.rs",
-        "src/auto/swift/basic/source_manager.rs",
-        "src/auto/swift/basic/type_checker_options.rs",
-        "src/auto/swift/clang_importer/clang_importer.rs",
-        "src/auto/swift/clang_importer/effective_clang_context.rs",
-        "src/auto/swift/clang_importer/serialized_swift_name.rs",
-        "src/auto/swift/clang_importer/serialized_swift_name/small_vector.rs",
-        "src/auto/swift/clang_importer/serialized_swift_name/small_vector_boxed.rs",
-        "src/auto/swift/clang_importer/serialized_swift_name/small_vector_impl.rs",
-        "src/auto/swift/clang_importer/swift_lookup_table.rs",
-        "src/auto/swift/clang_importer/swift_lookup_table/single_entry.rs",
-        "src/auto/swift/clang_importer/swift_lookup_table/single_entry/small_vector.rs",
-        "src/auto/swift/clang_importer/swift_lookup_table/single_entry/small_vector_boxed.rs",
-        "src/auto/swift/clang_importer/swift_lookup_table/single_entry/small_vector_impl.rs",
-        "src/auto/swift/symbol_graph_gen/symbol_graph_options.rs",
-        "src/proxy/ast_walker_dyn.rs",
+        out_dir.join("src/auto/swift/ast/ast_context.rs"),
+        out_dir.join("src/auto/swift/ast/ast_walker_base.rs"),
+        out_dir.join("src/auto/swift/ast/ast_walker_rust.rs"),
+        out_dir.join("src/auto/swift/ast/ast_walker.rs"),
+        out_dir.join("src/auto/swift/ast/ast_walker/parent_ty.rs"),
+        out_dir.join("src/auto/swift/ast/ast_walker/pre_walk_result_expr.rs"),
+        out_dir.join("src/auto/swift/ast/decl.rs"),
+        out_dir.join("src/auto/swift/ast/dependency_tracker.rs"),
+        out_dir.join("src/auto/swift/ast/diagnostic_engine.rs"),
+        out_dir.join("src/auto/swift/ast/expr.rs"),
+        out_dir.join("src/auto/swift/ast/identifier.rs"),
+        out_dir.join("src/auto/swift/ast/identifier/small_vector.rs"),
+        out_dir.join("src/auto/swift/ast/identifier/small_vector_impl.rs"),
+        out_dir.join("src/auto/swift/ast/import_path/module.rs"),
+        out_dir.join("src/auto/swift/ast/import_path/module/builder.rs"),
+        out_dir.join("src/auto/swift/ast/module_decl.rs"),
+        out_dir.join("src/auto/swift/ast/pattern.rs"),
+        out_dir.join("src/auto/swift/ast/search_path_options.rs"),
+        out_dir.join("src/auto/swift/ast/sil_options.rs"),
+        out_dir.join("src/auto/swift/ast/stmt.rs"),
+        out_dir.join("src/auto/swift/ast/type_repr.rs"),
+        out_dir.join("src/auto/swift/basic/clang_importer_options.rs"),
+        out_dir.join("src/auto/swift/basic/lang_options.rs"),
+        out_dir.join("src/auto/swift/basic/source_loc.rs"),
+        out_dir.join("src/auto/swift/basic/source_manager.rs"),
+        out_dir.join("src/auto/swift/basic/type_checker_options.rs"),
+        out_dir.join("src/auto/swift/clang_importer/clang_importer.rs"),
+        out_dir.join("src/auto/swift/clang_importer/effective_clang_context.rs"),
+        out_dir.join("src/auto/swift/clang_importer/serialized_swift_name.rs"),
+        out_dir.join("src/auto/swift/clang_importer/serialized_swift_name/small_vector.rs"),
+        out_dir.join("src/auto/swift/clang_importer/serialized_swift_name/small_vector_boxed.rs"),
+        out_dir.join("src/auto/swift/clang_importer/serialized_swift_name/small_vector_impl.rs"),
+        out_dir.join("src/auto/swift/clang_importer/swift_lookup_table.rs"),
+        out_dir.join("src/auto/swift/clang_importer/swift_lookup_table/single_entry.rs"),
+        out_dir.join("src/auto/swift/clang_importer/swift_lookup_table/single_entry/small_vector.rs"),
+        out_dir.join("src/auto/swift/clang_importer/swift_lookup_table/single_entry/small_vector_boxed.rs"),
+        out_dir.join("src/auto/swift/clang_importer/swift_lookup_table/single_entry/small_vector_impl.rs"),
+        out_dir.join("src/auto/swift/symbol_graph_gen/symbol_graph_options.rs"),
+        PathBuf::from("src/proxy/ast_walker_dyn.rs"),
     ];
     let files: &[&str] = &[];
     let output = "cxx-swift-auto";
@@ -76,9 +76,10 @@ fn main() -> BoxResult<()> {
     println!("cargo:rerun-if-changed=auto");
     println!("cargo:rerun-if-changed=cxx");
     let project_dir = project_dir()?;
-    let abi_dir = project_dir.join("auto");
-    let abi_crate_src_dir = project_dir.join("src");
-    cxx_auto::process_artifacts(&abi_dir, &abi_crate_src_dir)?;
-    process_cxx()?;
+    let out_dir = std::env::var("OUT_DIR")?;
+    let out_dir = PathBuf::from(out_dir);
+    let cfg_dir = project_dir.join("auto");
+    cxx_auto::process_artifacts(&project_dir, &out_dir, &cfg_dir)?;
+    process_cxx(&out_dir)?;
     Ok(())
 }

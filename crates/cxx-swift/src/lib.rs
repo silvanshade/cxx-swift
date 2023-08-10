@@ -1,3 +1,5 @@
+#![allow(clippy::module_inception)]
+
 mod auto;
 mod ffi {
     pub(crate) mod swift {
@@ -232,7 +234,7 @@ impl<This, Data> Initializer<This, Data> {
     }
 }
 
-unsafe impl<This, Data> moveref::New for Initializer<This, Data> {
+impl<This, Data> moveref::New for Initializer<This, Data> {
     type Output = This;
 
     #[inline]
