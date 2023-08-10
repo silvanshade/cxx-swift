@@ -6,8 +6,23 @@ project(cxx-swift LANGUAGES CXX)
 
 # export CMake configuration to compile_commands.json for IDE support
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # ensure that the C++ compiler is `clang++`
-set(CMAKE_CXX_COMPILER "clang++")
+if(APPLE)
+  set(CLANG_CXX_COMPILER "/opt/homebrew/opt/llvm@16/bin/clang++")
+  if(NOT EXISTS ${CLANG_CXX_COMPILER})
+    message(FATAL_ERROR "Could not find clang++-16`")
+  endif()
+  set(CMAKE_CXX_COMPILER ${CLANG_CXX_COMPILER})
+elseif(LINUX)
+  find_program(CLANG_CXX_COMPILER clang++-16)
+  if(NOT CLANG_CXX_COMPILER)
+    message(FATAL_ERROR "Could not find ${CLANG_CXX_COMPILER}`")
+  endif()
+  set(CMAKE_CXX_COMPILER ${CLANG_CXX_COMPILER})
+else()
+  message(FATAL_ERROR "unsupported platform")
+endif()
 
 add_library(cxx-swift-auto STATIC
   crates/cxx-swift/cxx/lib/swift/AST/ASTWalkerBase.cxx
