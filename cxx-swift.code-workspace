@@ -1,0 +1,22 @@
+{
+  "folders": [
+    {
+      "path": "../cxx-xtask"
+    }
+    {
+      "path": "../moveref"
+    },
+    {
+      "path": "../cxx-auto"
+    },
+    {
+      "path": "../cxx-llvm"
+    },
+    {
+      "path": "../cxx-clang"
+    },
+    {
+      "path": "../cxx-swift"
+    }
+  ]
+}
