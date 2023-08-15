@@ -1,6 +1,6 @@
 # cxx-swift
 
-Rust [cxx](https://cxx.rs/)-style FFI bindings to the Swift C++ API
+[cxx](https://cxx.rs/) FFI bindings to the [Swift C++ API](https://github.com/apple/swift/tree/main/lib)
 
 ### Build Instructions
 
