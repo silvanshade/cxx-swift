@@ -1,12 +1,14 @@
 {
   "[cpp]": {
-    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
-    "editor.formatOnSave": true
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
   },
   "C_Cpp.autoAddFileAssociations": false,
   "C_Cpp.codeAnalysis.clangTidy.args": ["-Wno-pragma-once-outside-header"],
   "clangd.arguments": [
     "--compile-commands-dir=${workspaceFolder}/build",
     "--completion-style=detailed"
-  ]
+  ],
+  "editor.formatOnSave": true,
+  "rust-analyzer.rustfmt.extraArgs": ["+nightly-2023-08-08"],
+  "rust-analyzer.rustfmt.rangeFormatting.enable": true
 }
